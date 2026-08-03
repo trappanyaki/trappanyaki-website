@@ -531,6 +531,37 @@ img {
   text-align: center;
 }
 
+/* Gallery Section */
+.gallery-section {
+  padding: 7rem 0;
+  background: var(--color-black);
+}
+
+.gallery-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.5rem;
+}
+
+.gallery-item {
+  border-radius: 12px;
+  overflow: hidden;
+  height: 280px;
+  perspective: 800px;
+}
+
+.gallery-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform var(--transition-normal);
+  will-change: transform;
+}
+
+.gallery-item:hover .gallery-img {
+  transform: scale(1.06);
+}
+
 /* Catering Section */
 .catering-section {
   padding: 6rem 0;
@@ -541,16 +572,34 @@ img {
   background: linear-gradient(145deg, #161616 0%, #0d0d0d 100%);
   border: 1px solid rgba(244, 162, 34, 0.25);
   border-radius: 16px;
-  padding: 4rem 3rem;
-  text-align: center;
+  padding: 3rem;
+  display: grid;
+  grid-template-columns: 0.9fr 1.1fr;
+  gap: 3rem;
+  align-items: center;
+  text-align: left;
   position: relative;
   overflow: hidden;
   box-shadow: 0 20px 50px rgba(0,0,0,0.8);
 }
 
+.catering-image-wrapper {
+  border-radius: 12px;
+  overflow: hidden;
+  height: 100%;
+  min-height: 320px;
+  perspective: 800px;
+}
+
+.catering-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
 .catering-content {
   max-width: 800px;
-  margin: 0 auto;
 }
 
 .catering-text {
@@ -563,9 +612,8 @@ img {
 .catering-features {
   list-style: none;
   display: flex;
-  justify-content: center;
-  gap: 2rem;
-  flex-wrap: wrap;
+  flex-direction: column;
+  gap: 0.85rem;
   margin-bottom: 3rem;
 }
 
@@ -705,13 +753,29 @@ img {
     grid-template-columns: 1fr;
   }
 
+  .gallery-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .gallery-item {
+    height: 200px;
+  }
+
   .catering-box {
+    grid-template-columns: 1fr;
     padding: 2.5rem 1.5rem;
+    text-align: center;
+  }
+
+  .catering-image-wrapper {
+    min-height: 220px;
+  }
+
+  .catering-content {
+    max-width: 100%;
   }
 
   .catering-features {
-    flex-direction: column;
     align-items: center;
-    gap: 1rem;
   }
 }

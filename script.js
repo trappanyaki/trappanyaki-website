@@ -64,6 +64,20 @@ document.addEventListener('DOMContentLoaded', () => {
       ease: 'power3.out'
     });
 
+    // Gallery Grid Staggered Reveal Animation
+    gsap.from('.gallery-item', {
+      scrollTrigger: {
+        trigger: '.gallery-grid',
+        start: 'top 85%',
+        toggleActions: 'play none none reverse'
+      },
+      y: 50,
+      opacity: 0,
+      duration: 0.8,
+      stagger: 0.12,
+      ease: 'power3.out'
+    });
+
     // Catering Box Reveal Animation
     gsap.from('.catering-box', {
       scrollTrigger: {
@@ -104,7 +118,9 @@ document.addEventListener('DOMContentLoaded', () => {
     if (window.matchMedia('(hover: hover) and (pointer: fine)').matches) {
       const tiltTargets = [
         document.querySelector('.stamp-logo'),
-        ...document.querySelectorAll('.card-image-wrapper')
+        ...document.querySelectorAll('.card-image-wrapper'),
+        ...document.querySelectorAll('.gallery-item'),
+        ...document.querySelectorAll('.catering-image-wrapper')
       ].filter(Boolean);
 
       tiltTargets.forEach(el => {
