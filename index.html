@@ -1,0 +1,588 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Trappanyaki LLC | Premium Mobile Hibachi &amp; Catering</title>
+  <meta name="description" content="Trappanyaki LLC — luxury-street mobile hibachi out of Tracy, CA. Seared plates, signature garlic noodles, Bussdown Designer Burritos and garlic noodles, dropped by the batch.">
+  <meta name="theme-color" content="#0a0a0b">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@700;900&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <a class="skip-link" href="#take">Skip to content</a>
+
+  <!-- ============ NAV ============ -->
+  <header class="navbar" id="navbar">
+    <div class="nav-container">
+      <a href="#top" class="brand-link" aria-label="Trappanyaki LLC home">
+        <img src="assets/logo.png" alt="Trappanyaki" class="brand-logo" width="755" height="472">
+        <span class="brand-sub">BLESS YA TASTE BUDS</span>
+      </a>
+
+      <nav class="nav-links" id="nav-menu" aria-label="Primary">
+        <a href="#ledger" class="nav-link">Spec</a>
+        <a href="#menu" class="nav-link">Menu</a>
+        <a href="#breakdown" class="nav-link">Protein</a>
+        <a href="#builder" class="nav-link">Build a Batch</a>
+        <a href="#faq" class="nav-link">FAQ</a>
+        <a href="https://square.link/u/6tGjr89x" target="_blank" rel="noopener noreferrer" class="nav-btn">Order Now</a>
+      </nav>
+
+      <button class="mobile-toggle" id="mobile-toggle" aria-label="Toggle navigation" aria-expanded="false" aria-controls="nav-menu">
+        <span class="bar"></span><span class="bar"></span><span class="bar"></span>
+      </button>
+    </div>
+  </header>
+
+  <span id="top"></span>
+
+  <!-- ============ THE TAKE — one continuous scrubbed shot, 4 chapters ============ -->
+  <section class="take" id="take" aria-label="The Take — hibachi tray sequence">
+    <div class="take-track" id="take-track">
+      <div class="take-stage" id="take-stage">
+
+        <div class="stage-glow" aria-hidden="true"></div>
+        <div class="stage-grain" aria-hidden="true"></div>
+
+        <!-- camera rig: one shot, no cuts -->
+        <div class="rig" id="rig" aria-hidden="true">
+          <div class="tray" id="tray">
+            <div class="tray-shadow" id="tray-shadow"></div>
+
+            <div class="tray-body">
+              <img class="tray-face tray-face--wide" id="face-wide" src="assets/gallery1.jpg" alt="">
+              <img class="tray-face tray-face--macro" id="face-macro" src="assets/gallery6.jpg" alt="">
+              <div class="tray-vignette"></div>
+              <div class="tray-gloss" id="gloss"></div>
+              <div class="tray-rim" id="tray-rim"></div>
+            </div>
+
+            <!-- clear snap-lid -->
+            <div class="tray-lid" id="tray-lid">
+              <div class="lid-sheen"></div>
+              <div class="lid-lip"></div>
+            </div>
+
+            <div class="steam" id="steam">
+              <span></span><span></span><span></span><span></span><span></span><span></span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Optional upgrade: drop a rendered clip in assets/ and put its path in data-src.
+             The take then scrubs the footage instead of the CSS rig. Empty = no request. -->
+        <video class="take-video" id="take-video" data-src="" playsinline muted preload="auto" aria-hidden="true"></video>
+
+        <!-- HUD -->
+        <div class="take-hud">
+          <div class="hud-scrim" id="hud-scrim" aria-hidden="true"></div>
+          <div class="hud-top">
+            <span class="hud-mark">TRAPPANYAKI</span>
+            <span class="hud-take">ONE TAKE · NO CUTS</span>
+          </div>
+
+          <div class="chapters" id="chapters">
+            <article class="chapter is-live" data-ch="0">
+              <span class="ch-index">CH 01</span>
+              <h2 class="ch-title">THE LIFT</h2>
+              <p class="ch-line">Tray comes up out of the dark. Still ticking from the flat-top.</p>
+            </article>
+            <article class="chapter" data-ch="1">
+              <span class="ch-index">CH 02</span>
+              <h2 class="ch-title">THE RELEASE</h2>
+              <p class="ch-line">Snap-lid lets go. One wisp of steam signs the plate.</p>
+            </article>
+            <article class="chapter" data-ch="2">
+              <span class="ch-index">CH 03</span>
+              <h2 class="ch-title">THE TURN</h2>
+              <p class="ch-line">Crossed drizzle — chipotle-orange mayo over dark soy — catching light.</p>
+            </article>
+            <article class="chapter" data-ch="3">
+              <span class="ch-index">CH 04</span>
+              <h2 class="ch-title">THE BITE</h2>
+              <p class="ch-line">One glistening piece of seared chicken. That's the whole argument.</p>
+            </article>
+          </div>
+
+          <div class="hud-bottom">
+            <div class="rail" role="presentation">
+              <span class="rail-fill" id="rail-fill"></span>
+              <span class="rail-tick" style="left:25%"></span>
+              <span class="rail-tick" style="left:50%"></span>
+              <span class="rail-tick" style="left:75%"></span>
+            </div>
+            <div class="hud-meta">
+              <span class="hud-count"><b id="hud-ch">01</b> / 04</span>
+              <span class="hud-scroll">SCROLL TO RUN THE TAKE</span>
+            </div>
+          </div>
+
+          <div class="take-actions">
+            <a href="https://square.link/u/6tGjr89x" target="_blank" rel="noopener noreferrer" class="btn btn-primary">Order Now</a>
+            <a href="#builder" class="btn btn-ghost">Build a Batch</a>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ SPEC LEDGER ============ -->
+  <section class="ledger" id="ledger" aria-label="Plate specification ledger">
+    <div class="container">
+      <div class="ledger-head">
+        <span class="eyebrow eyebrow--dark">SPEC LEDGER</span>
+        <h2 class="ledger-title">THE PLATE, ON THE RECORD</h2>
+        <p class="ledger-sub">Every tray that leaves the flat-top hits the same marks. No off-nights.</p>
+      </div>
+
+      <dl class="ledger-rows">
+        <div class="ledger-row reveal">
+          <dt>PROTEIN</dt><dd>Seared chicken bites · thigh &amp; breast cut to the same weight</dd><span class="ledger-val">6 OZ</span>
+        </div>
+        <div class="ledger-row reveal">
+          <dt>SEAR</dt><dd>Flat-top, hard char edge, rested 90 seconds before it plates</dd><span class="ledger-val">600°F</span>
+        </div>
+        <div class="ledger-row reveal">
+          <dt>GLAZE</dt><dd>Crossed drizzle — chipotle-orange mayo laid over dark soy glaze</dd><span class="ledger-val">2 PASS</span>
+        </div>
+        <div class="ledger-row reveal">
+          <dt>FINISH</dt><dd>Fresh-cut scallion rings, thrown on after the heat, never before</dd><span class="ledger-val">CUT-TO-ORDER</span>
+        </div>
+        <div class="ledger-row reveal">
+          <dt>TRAY</dt><dd>Matte black togo tray, clear snap-lid, vented so the char stays crisp</dd><span class="ledger-val">SNAP-LID</span>
+        </div>
+        <div class="ledger-row reveal">
+          <dt>WINDOW</dt><dd>Batch drops posted the night before — pickup only, Tracy, CA</dd><span class="ledger-val">8 PLATES</span>
+        </div>
+      </dl>
+    </div>
+  </section>
+
+  <!-- ============ MENU ============ -->
+  <section class="menu-section" id="menu" aria-label="Menu">
+    <div class="container">
+      <div class="section-header">
+        <span class="eyebrow">THE SELECTION</span>
+        <h2 class="section-title">EXECUTIVE MENU</h2>
+        <div class="gold-divider"></div>
+      </div>
+
+      <div class="menu-grid">
+        <article class="menu-card reveal">
+          <div class="card-image-wrapper">
+            <img src="assets/food2.jpg" alt="Premium hibachi plate with steak, chicken and shrimp" class="card-img" loading="lazy">
+            <span class="card-tag">SIGNATURE</span>
+          </div>
+          <div class="card-body">
+            <div class="card-head">
+              <h3 class="card-title">Hibachi Plates</h3>
+              <span class="card-price">from $24.99</span>
+            </div>
+            <p class="card-subtext">Fried rice, mixed veggies &amp; yumyum sauce</p>
+            <ul class="price-list">
+              <li><span>Chicken</span><b>$24.99</b></li>
+              <li><span>Shrimp</span><b>$29.99</b></li>
+              <li><span>Salmon</span><b>$34.99</b></li>
+              <li><span>Scallops</span><b>$34.99</b></li>
+              <li><span>Ribeye</span><b>$39.99</b></li>
+              <li><span>Lobster Tail</span><b>$44.99</b></li>
+              <li><span>Filet Mignon</span><b>$49.99</b></li>
+            </ul>
+            <h4 class="price-head">Combo Plates</h4>
+            <ul class="price-list">
+              <li><span>Chicken &amp; Shrimp</span><b>$34.99</b></li>
+              <li><span>Filet &amp; Shrimp</span><b>$44.99</b></li>
+              <li><span>Ribeye &amp; Shrimp</span><b>$49.99</b></li>
+              <li><span>Ribeye &amp; Lobster</span><b>$54.99</b></li>
+              <li><span>Filet &amp; Lobster</span><b>$64.99</b></li>
+            </ul>
+          </div>
+        </article>
+
+        <article class="menu-card reveal">
+          <div class="card-image-wrapper">
+            <img src="assets/food5.jpg" alt="Bussdown Designer Burrito cut open showing steak, sauce and garlic noodles" class="card-img" loading="lazy">
+            <span class="card-tag gold-tag">XXL PREMIUM</span>
+          </div>
+          <div class="card-body">
+            <div class="card-head">
+              <h3 class="card-title">Bussdown Designer Burritos</h3>
+              <span class="card-price">from $24.99</span>
+            </div>
+            <p class="card-subtext">XXL premium hibachi burritos</p>
+            <ul class="price-list">
+              <li><span>Chicken</span><b>$24.99</b></li>
+              <li><span>Chicken &amp; Shrimp</span><b>$29.99</b></li>
+              <li><span>Shrimp</span><b>$29.99</b></li>
+              <li><span>Salmon</span><b>$34.99</b></li>
+              <li><span>Scallops</span><b>$34.99</b></li>
+              <li><span>Steak &amp; Shrimp</span><b>$34.99</b></li>
+              <li><span>Ribeye</span><b>$39.99</b></li>
+              <li><span>Lobster</span><b>$44.99</b></li>
+              <li><span>Filet</span><b>$49.99</b></li>
+              <li><span>Ribeye &amp; Shrimp</span><b>$49.99</b></li>
+              <li><span>Ribeye &amp; Lobster</span><b>$64.99</b></li>
+              <li><span>Filet &amp; Lobster</span><b>$74.99</b></li>
+            </ul>
+            <div class="specialty">
+              <div class="specialty-row">
+                <div>
+                  <span class="specialty-name">Trappanyaki Rito</span>
+                  <span class="specialty-sub">Ribeye · Lobster · Scallops</span>
+                </div>
+                <b>$49.99</b>
+              </div>
+              <div class="specialty-row">
+                <div>
+                  <span class="specialty-name">Filet &amp; Crown Rito</span>
+                  <span class="specialty-sub">Filet · Lobster · Scallops</span>
+                </div>
+                <b>$59.99</b>
+              </div>
+            </div>
+            <p class="card-fine">Make it a designer — double protein +$5.99 · extra garlic butter +$1.99 · extra yummyaki +$1.99. Upgrades already included in the specialty ritos.</p>
+          </div>
+        </article>
+
+        <article class="menu-card reveal">
+          <div class="card-image-wrapper">
+            <img src="assets/catering.jpg" alt="Full pan of Trappanyaki signature garlic noodles" class="card-img" loading="lazy">
+            <span class="card-tag drop-tag">HOUSE SPECIALTY</span>
+          </div>
+          <div class="card-body">
+            <div class="card-head">
+              <h3 class="card-title">Garlic Noodle Menu</h3>
+              <span class="card-price">from $24.99</span>
+            </div>
+            <p class="card-subtext">Signature garlic noodles, seared to order</p>
+            <ul class="price-list">
+              <li><span>Chicken</span><b>$24.99</b></li>
+              <li><span>Shrimp</span><b>$29.99</b></li>
+              <li><span>Steak</span><b>$29.99</b></li>
+              <li><span>Salmon</span><b>$34.99</b></li>
+              <li><span>Chicken &amp; Steak</span><b>$34.99</b></li>
+              <li><span>Steak &amp; Shrimp</span><b>$34.99</b></li>
+              <li><span>Ribeye</span><b>$39.99</b></li>
+              <li><span>Filet Mignon</span><b>$49.99</b></li>
+            </ul>
+            <h4 class="price-head">Add-Ons &amp; Sides</h4>
+            <ul class="price-list">
+              <li><span>Garlic Noodles</span><b>$9.99</b></li>
+              <li><span>Extra Sauces</span><b>$2.99</b></li>
+              <li><span>Add Chicken</span><b>$5.99</b></li>
+              <li><span>Add Shrimp</span><b>$8.99</b></li>
+              <li><span>Upgrade to Ribeye</span><b>$14.99</b></li>
+              <li><span>Add Lobster Tail</span><b>$19.99</b></li>
+              <li><span>Upgrade to Filet</span><b>$19.99</b></li>
+            </ul>
+            <p class="card-fine">Add on to any plate, noodle or burrito.</p>
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ LIVE BATCH TICKER ============ -->
+  <section class="ticker-section" id="ticker" aria-label="Live batch counts">
+    <div class="ticker-marquee" aria-hidden="true">
+      <div class="ticker-marquee-inner" id="marquee"></div>
+    </div>
+
+    <div class="container">
+      <div class="ticker-grid">
+        <div class="tick reveal">
+          <span class="tick-label">BATCHES SEARED TODAY</span>
+          <span class="tick-num" id="tick-batches" data-start="6">0</span>
+          <span class="tick-foot"><i class="pulse"></i> counting live</span>
+        </div>
+        <div class="tick reveal">
+          <span class="tick-label">PLATES OUT THE DOOR</span>
+          <span class="tick-num" id="tick-plates" data-start="47">0</span>
+          <span class="tick-foot">since 11:00 AM</span>
+        </div>
+        <div class="tick reveal">
+          <span class="tick-label">SLOTS LEFT IN THIS BATCH</span>
+          <span class="tick-num tick-num--red" id="tick-slots">8</span>
+          <span class="tick-foot">cap is 8 plates</span>
+        </div>
+        <div class="tick reveal">
+          <span class="tick-label">AVG SEAR TO LID</span>
+          <span class="tick-num" id="tick-sear">9<small>:40</small></span>
+          <span class="tick-foot">minutes per tray</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ PROTEIN & SAUCE BREAKDOWN ============ -->
+  <section class="breakdown" id="breakdown" aria-label="Protein and sauce breakdown">
+    <div class="container">
+      <div class="section-header">
+        <span class="eyebrow">WHAT'S ACTUALLY ON THE TRAY</span>
+        <h2 class="section-title">PROTEIN &amp; SAUCE</h2>
+        <div class="gold-divider"></div>
+      </div>
+
+      <div class="breakdown-grid">
+        <div class="bd-card reveal">
+          <h3 class="bd-title"><span class="bd-dot bd-dot--red"></span>PROTEIN SPLIT</h3>
+          <p class="bd-note">How a standard 8-plate batch usually goes out.</p>
+          <ul class="bars" data-bars>
+            <li><span class="bar-name">Seared Chicken</span><span class="bar-track"><i style="--w:42%"></i></span><span class="bar-val">42%</span></li>
+            <li><span class="bar-name">Ribeye Steak</span><span class="bar-track"><i style="--w:26%"></i></span><span class="bar-val">26%</span></li>
+            <li><span class="bar-name">Jumbo Shrimp</span><span class="bar-track"><i style="--w:18%"></i></span><span class="bar-val">18%</span></li>
+            <li><span class="bar-name">Salmon</span><span class="bar-track"><i style="--w:9%"></i></span><span class="bar-val">9%</span></li>
+            <li><span class="bar-name">Veg Only</span><span class="bar-track"><i style="--w:5%"></i></span><span class="bar-val">5%</span></li>
+          </ul>
+        </div>
+
+        <div class="bd-card reveal">
+          <h3 class="bd-title"><span class="bd-dot bd-dot--gold"></span>SAUCE BUILD</h3>
+          <p class="bd-note">The crossed drizzle, by weight, per tray.</p>
+          <ul class="bars bars--gold" data-bars>
+            <li><span class="bar-name">Chipotle-Orange Mayo</span><span class="bar-track"><i style="--w:38%"></i></span><span class="bar-val">38%</span></li>
+            <li><span class="bar-name">Dark Soy Glaze</span><span class="bar-track"><i style="--w:31%"></i></span><span class="bar-val">31%</span></li>
+            <li><span class="bar-name">Garlic Butter</span><span class="bar-track"><i style="--w:16%"></i></span><span class="bar-val">16%</span></li>
+            <li><span class="bar-name">Yum Yum</span><span class="bar-track"><i style="--w:10%"></i></span><span class="bar-val">10%</span></li>
+            <li><span class="bar-name">Scallion &amp; Sesame</span><span class="bar-track"><i style="--w:5%"></i></span><span class="bar-val">5%</span></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ BATCH-SLOT BUILDER ============ -->
+  <section class="builder" id="builder" aria-label="Batch slot builder">
+    <div class="container">
+      <div class="section-header">
+        <span class="eyebrow">RESERVE YOUR SLOTS</span>
+        <h2 class="section-title">BUILD YOUR BATCH</h2>
+        <div class="gold-divider"></div>
+        <p class="section-lede">Each drop runs a hard cap of <b>8 plates</b>. Lock your slots, then send it through Square.</p>
+      </div>
+
+      <div class="builder-grid">
+        <!-- picks -->
+        <div class="builder-main">
+          <h3 class="builder-sub">1 · PICK YOUR PLATES</h3>
+          <ul class="plate-list" id="plate-list">
+            <li class="plate-row" data-price="24.99">
+              <div class="plate-info">
+                <span class="plate-name">Chicken Plate</span>
+                <span class="plate-desc">Fried rice, mixed veggies, yumyum sauce</span>
+              </div>
+              <span class="plate-price">$24.99</span>
+              <div class="stepper">
+                <button type="button" class="step step-down" aria-label="Remove one chicken plate">&minus;</button>
+                <output class="step-qty" data-qty>0</output>
+                <button type="button" class="step step-up" aria-label="Add one chicken plate">+</button>
+              </div>
+            </li>
+            <li class="plate-row" data-price="29.99">
+              <div class="plate-info">
+                <span class="plate-name">Shrimp Plate</span>
+                <span class="plate-desc">Fried rice, mixed veggies, yumyum sauce</span>
+              </div>
+              <span class="plate-price">$29.99</span>
+              <div class="stepper">
+                <button type="button" class="step step-down" aria-label="Remove one shrimp plate">&minus;</button>
+                <output class="step-qty" data-qty>0</output>
+                <button type="button" class="step step-up" aria-label="Add one shrimp plate">+</button>
+              </div>
+            </li>
+            <li class="plate-row" data-price="34.99">
+              <div class="plate-info">
+                <span class="plate-name">Salmon Plate</span>
+                <span class="plate-desc">Fried rice, mixed veggies, yumyum sauce</span>
+              </div>
+              <span class="plate-price">$34.99</span>
+              <div class="stepper">
+                <button type="button" class="step step-down" aria-label="Remove one salmon plate">&minus;</button>
+                <output class="step-qty" data-qty>0</output>
+                <button type="button" class="step step-up" aria-label="Add one salmon plate">+</button>
+              </div>
+            </li>
+            <li class="plate-row" data-price="34.99">
+              <div class="plate-info">
+                <span class="plate-name">Chicken &amp; Shrimp Combo</span>
+                <span class="plate-desc">Combo plate, two proteins on one tray</span>
+              </div>
+              <span class="plate-price">$34.99</span>
+              <div class="stepper">
+                <button type="button" class="step step-down" aria-label="Remove one chicken and shrimp combo">&minus;</button>
+                <output class="step-qty" data-qty>0</output>
+                <button type="button" class="step step-up" aria-label="Add one chicken and shrimp combo">+</button>
+              </div>
+            </li>
+            <li class="plate-row" data-price="39.99">
+              <div class="plate-info">
+                <span class="plate-name">Ribeye Plate</span>
+                <span class="plate-desc">Fried rice, mixed veggies, yumyum sauce</span>
+              </div>
+              <span class="plate-price">$39.99</span>
+              <div class="stepper">
+                <button type="button" class="step step-down" aria-label="Remove one ribeye plate">&minus;</button>
+                <output class="step-qty" data-qty>0</output>
+                <button type="button" class="step step-up" aria-label="Add one ribeye plate">+</button>
+              </div>
+            </li>
+            <li class="plate-row" data-price="44.99">
+              <div class="plate-info">
+                <span class="plate-name">Lobster Tail Plate</span>
+                <span class="plate-desc">Fried rice, mixed veggies, yumyum sauce</span>
+              </div>
+              <span class="plate-price">$44.99</span>
+              <div class="stepper">
+                <button type="button" class="step step-down" aria-label="Remove one lobster tail plate">&minus;</button>
+                <output class="step-qty" data-qty>0</output>
+                <button type="button" class="step step-up" aria-label="Add one lobster tail plate">+</button>
+              </div>
+            </li>
+            <li class="plate-row" data-price="49.99">
+              <div class="plate-info">
+                <span class="plate-name">Filet Mignon Plate</span>
+                <span class="plate-desc">Fried rice, mixed veggies, yumyum sauce</span>
+              </div>
+              <span class="plate-price">$49.99</span>
+              <div class="stepper">
+                <button type="button" class="step step-down" aria-label="Remove one filet mignon plate">&minus;</button>
+                <output class="step-qty" data-qty>0</output>
+                <button type="button" class="step step-up" aria-label="Add one filet mignon plate">+</button>
+              </div>
+            </li>
+          </ul>
+
+          <h3 class="builder-sub">2 · ADD-ONS</h3>
+          <ul class="addon-list" id="addon-list">
+            <li><label><input type="checkbox" data-addon data-price="9.99"><span>Garlic noodles</span><b>+$9.99</b></label></li>
+            <li><label><input type="checkbox" data-addon data-price="2.99"><span>Extra sauces</span><b>+$2.99</b></label></li>
+            <li><label><input type="checkbox" data-addon data-price="8.99"><span>Add shrimp</span><b>+$8.99</b></label></li>
+            <li><label><input type="checkbox" data-addon data-price="19.99"><span>Add lobster tail</span><b>+$19.99</b></label></li>
+          </ul>
+
+          <h3 class="builder-sub">3 · PICKUP SLOT</h3>
+          <div class="slot-list" id="slot-list" role="radiogroup" aria-label="Pickup slot">
+            <label class="slot"><input type="radio" name="slot" value="Tracy · 5:30 PM" checked><span>Tracy<b>5:30 PM</b></span></label>
+            <label class="slot"><input type="radio" name="slot" value="Tracy · 7:00 PM"><span>Tracy<b>7:00 PM</b></span></label>
+            <label class="slot"><input type="radio" name="slot" value="Tracy · 8:15 PM"><span>Tracy<b>8:15 PM</b></span></label>
+          </div>
+        </div>
+
+        <!-- live receipt -->
+        <aside class="builder-receipt" aria-live="polite">
+          <div class="receipt-inner">
+            <span class="receipt-eyebrow">YOUR BATCH</span>
+
+            <div class="cap-wrap">
+              <div class="cap-bar"><i id="cap-fill"></i></div>
+              <p class="cap-text"><b id="cap-used">0</b> of 8 plates locked · <span id="cap-left">8 open</span></p>
+              <p class="cap-warn" id="cap-warn" hidden>Batch cap reached — 8 plates is the whole drop.</p>
+            </div>
+
+            <ul class="receipt-lines" id="receipt-lines">
+              <li class="receipt-empty">No plates yet. Start with the chicken.</li>
+            </ul>
+
+            <div class="receipt-total">
+              <span>LIVE TOTAL</span>
+              <b id="receipt-total">$0</b>
+            </div>
+            <p class="receipt-slot">Pickup: <span id="receipt-slot">Tracy · 5:30 PM</span></p>
+
+            <a href="https://square.link/u/6tGjr89x" target="_blank" rel="noopener noreferrer" class="btn btn-primary btn-block" id="lock-btn">Lock This Batch</a>
+            <button type="button" class="btn btn-ghost btn-block" id="copy-btn">Copy Order Summary</button>
+            <p class="receipt-fine">Pickup only · Tracy, CA. Prices confirmed at checkout.</p>
+          </div>
+        </aside>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ FAQ ============ -->
+  <section class="faq" id="faq" aria-label="Frequently asked questions">
+    <div class="container container--narrow">
+      <div class="section-header">
+        <span class="eyebrow">BEFORE YOU ORDER</span>
+        <h2 class="section-title">FAQ</h2>
+        <div class="gold-divider"></div>
+      </div>
+
+      <div class="faq-list" id="faq-list">
+        <details class="faq-item">
+          <summary>What does the 8-plate cap actually mean?</summary>
+          <div class="faq-body"><p>Every drop is capped at eight plates so nothing sits. When the eighth slot is claimed, that batch closes and the next window opens. It keeps the sear tight and the lid going on hot.</p></div>
+        </details>
+        <details class="faq-item">
+          <summary>Where do I pick up?</summary>
+          <div class="faq-body"><p>Tracy, CA. Your exact pickup pin goes out with the confirmation once the batch locks. Pickup only — no delivery right now.</p></div>
+        </details>
+        <details class="faq-item">
+          <summary>What's in the crossed drizzle?</summary>
+          <div class="faq-body"><p>Two passes: a chipotle-orange mayo laid across a dark soy glaze, crossed so you get both in one bite. Fresh scallion goes on after the heat. Sauce on the side on request.</p></div>
+        </details>
+        <details class="faq-item">
+          <summary>Can you cater a private or corporate event?</summary>
+          <div class="faq-body"><p>Yes — full mobile setup, on-site flat-top, custom multi-course menus, and the live teppanyaki show. Email <a href="mailto:trappanyakillc@gmail.com">trappanyakillc@gmail.com</a> with your date, headcount and location.</p></div>
+        </details>
+        <details class="faq-item">
+          <summary>Do you handle allergies or dietary swaps?</summary>
+          <div class="faq-body"><p>Tell us in the order notes. We can go veg-only, skip the mayo, or run sauce-on-the-side. Everything shares one flat-top, so we can't promise a fully allergen-free tray.</p></div>
+        </details>
+        <details class="faq-item">
+          <summary>How far ahead do drops get posted?</summary>
+          <div class="faq-body"><p>The night before. Slots move fast once the batch goes live — build your batch here first so you can send it through Square the second it opens.</p></div>
+        </details>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ GRILL-PLATE FOOTER ============ -->
+  <footer class="grill-footer" aria-label="Footer">
+    <div class="grill-plate" aria-hidden="true">
+      <span class="grill-heat"></span>
+      <span class="grill-scrape"></span>
+    </div>
+
+    <div class="container footer-grid">
+      <div class="footer-brand">
+        <img src="assets/logo.png" alt="Trappanyaki LLC" class="footer-logo" width="755" height="472" loading="lazy">
+        <p class="footer-tagline">"Bless ya taste buds"</p>
+        <p class="footer-foot">Luxury-street mobile hibachi · Tracy, CA · Pickup only</p>
+      </div>
+
+      <div class="footer-col">
+        <h4>ORDER</h4>
+        <a href="https://square.link/u/6tGjr89x" target="_blank" rel="noopener noreferrer">Square Checkout</a>
+        <a href="#builder">Build a Batch</a>
+        <a href="#menu">Full Menu</a>
+      </div>
+
+      <div class="footer-col">
+        <h4>BOOK</h4>
+        <a href="mailto:trappanyakillc@gmail.com">trappanyakillc@gmail.com</a>
+        <a href="https://www.instagram.com/trappanyaki" target="_blank" rel="noopener noreferrer">@trappanyaki</a>
+        <a href="#faq">Catering FAQ</a>
+        <a href="#ledger">Spec Ledger</a>
+      </div>
+
+      <div class="footer-col footer-col--spec">
+        <h4>DROP STATUS</h4>
+        <p class="footer-status"><i class="pulse"></i> <span id="footer-status">Next batch open · 8 slots</span></p>
+        <p class="footer-note">Batch drops posted the night before.</p>
+      </div>
+    </div>
+
+    <div class="container footer-base">
+      <span>&copy; <span id="year">2026</span> Trappanyaki LLC. All rights reserved.</span>
+      <span class="footer-base-right">TRACY, CALIFORNIA</span>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
