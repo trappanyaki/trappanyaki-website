@@ -8,8 +8,62 @@
   <meta name="theme-color" content="#0a0a0b">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@700;900&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <!-- Fonts load without blocking paint: the page renders immediately in the
+       Montserrat fallback and swaps when (or if) the CDN answers. -->
+  <link rel="preload" as="style"
+        href="https://fonts.googleapis.com/css2?family=Cinzel:wght@700;900&family=Montserrat:wght@400;600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap"
+        onload="this.onload=null;this.rel='stylesheet'">
+  <noscript>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cinzel:wght@700;900&family=Montserrat:wght@400;600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap">
+  </noscript>
   <link rel="stylesheet" href="style.css">
+
+  <link rel="icon" href="/favicon.ico" sizes="any">
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+  <link rel="canonical" href="https://trappanyaki.netlify.app/">
+
+  <!-- Absolute URLs: scrapers do not resolve relative paths. -->
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="Trappanyaki LLC">
+  <meta property="og:url" content="https://trappanyaki.netlify.app/">
+  <meta property="og:title" content="TRAPPANYAKI — Luxury-Street Hibachi · Tracy, CA">
+  <meta property="og:description" content="Seared hibachi plates, signature garlic noodles and Bussdown Designer Burritos. Eight-plate batch drops, pickup only. Bless ya taste buds.">
+  <meta property="og:image" content="https://trappanyaki.netlify.app/og-image.jpg">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="TRAPPANYAKI — Luxury-Street Hibachi · Tracy, CA">
+  <meta name="twitter:description" content="Seared hibachi plates and garlic noodles, dropped by the batch. Pickup only, Tracy CA.">
+  <meta name="twitter:image" content="https://trappanyaki.netlify.app/og-image.jpg">
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FoodEstablishment",
+    "name": "Trappanyaki LLC",
+    "description": "Luxury-street mobile hibachi out of Tracy, California. Seared plates, signature garlic noodles and Bussdown Designer Burritos, dropped by the batch.",
+    "url": "https://trappanyaki.netlify.app/",
+    "image": "https://trappanyaki.netlify.app/og-image.jpg",
+    "servesCuisine": ["Hibachi", "Japanese", "Teppanyaki"],
+    "priceRange": "$$",
+    "email": "trappanyakillc@gmail.com",
+    "areaServed": { "@type": "City", "name": "Tracy", "addressRegion": "CA", "addressCountry": "US" },
+    "openingHoursSpecification": {
+      "@type": "OpeningHoursSpecification",
+      "dayOfWeek": ["Monday","Tuesday","Wednesday","Thursday","Friday","Saturday","Sunday"],
+      "opens": "15:00",
+      "closes": "23:59"
+    },
+    "sameAs": ["https://www.instagram.com/trappanyaki", "https://www.tiktok.com/@trappanyaki"],
+    "hasMenu": "https://trappanyaki.netlify.app/#menu",
+    "acceptsReservations": false,
+    "potentialAction": {
+      "@type": "OrderAction",
+      "target": "https://square.link/u/6tGjr89x",
+      "deliveryMethod": "http://purl.org/goodrelations/v1#PickUp"
+    }
+  }
+  </script>
 </head>
 <body>
 
@@ -19,7 +73,7 @@
   <header class="navbar" id="navbar">
     <div class="nav-container">
       <a href="#top" class="brand-link" aria-label="Trappanyaki LLC home">
-        <img src="assets/logo.png" alt="Trappanyaki" class="brand-logo" width="755" height="472">
+        <img src="assets/logo.webp" alt="Trappanyaki" class="brand-logo" width="320" height="200">
         <span class="brand-sub">BLESS YA TASTE BUDS</span>
       </a>
 
@@ -46,7 +100,6 @@
       <div class="take-stage" id="take-stage">
 
         <div class="stage-glow" aria-hidden="true"></div>
-        <div class="stage-grain" aria-hidden="true"></div>
 
         <!-- camera rig: one shot, no cuts -->
         <div class="rig" id="rig" aria-hidden="true">
@@ -55,7 +108,9 @@
 
             <div class="tray-body">
               <div class="tray-floor"></div>
-              <img class="tray-face tray-face--macro" id="face-macro" src="assets/gallery6.jpg" alt="">
+              <!-- the macro face is only needed once the take reaches chapter 3; the
+                   scrub fetches it then, so it costs nothing at first paint -->
+              <img class="tray-face tray-face--macro" id="face-macro" data-src="assets/gallery6.webp" alt="" decoding="async">
               <div class="tray-vignette"></div>
               <div class="tray-gloss" id="gloss"></div>
               <div class="tray-rim" id="tray-rim"></div>
@@ -63,11 +118,11 @@
 
             <!-- the plate, in layers — they hang apart and land one by one as you scroll -->
             <div class="plate" id="plate">
-              <img class="pl" src="assets/layer-rice.webp" alt="" loading="eager">
-              <img class="pl" src="assets/layer-veg.webp" alt="" loading="eager">
-              <img class="pl" src="assets/layer-chicken.webp" alt="" loading="eager">
-              <img class="pl" src="assets/layer-steak.webp" alt="" loading="eager">
-              <img class="pl" src="assets/layer-sauce.webp" alt="" loading="eager">
+              <img class="pl" src="assets/layerrice.webp" alt="" loading="eager">
+              <img class="pl" src="assets/layerveg.webp" alt="" loading="eager">
+              <img class="pl" src="assets/layerchicken.webp" alt="" loading="eager">
+              <img class="pl" src="assets/layersteak.webp" alt="" loading="eager">
+              <img class="pl" src="assets/layersauce.webp" alt="" loading="eager">
             </div>
 
             <!-- clear snap-lid -->
@@ -166,7 +221,7 @@
           <dt>TRAY</dt><dd>Matte black togo tray, clear snap-lid, vented so the char stays crisp</dd><span class="ledger-val">SNAP-LID</span>
         </div>
         <div class="ledger-row reveal">
-          <dt>WINDOW</dt><dd>Batch drops posted the night before — pickup only, Tracy, CA</dd><span class="ledger-val">8 PLATES</span>
+          <dt>WINDOW</dt><dd>Pickup 4, 6, 8 or 11 PM — kitchen runs 3 PM to midnight, Tracy, CA</dd><span class="ledger-val">8 PLATES</span>
         </div>
       </dl>
     </div>
@@ -184,7 +239,7 @@
       <div class="menu-grid">
         <article class="menu-card reveal">
           <div class="card-image-wrapper">
-            <img src="assets/food2.jpg" alt="Premium hibachi plate with steak, chicken and shrimp" class="card-img" loading="lazy">
+            <img src="assets/food2.webp" alt="Premium hibachi plate with steak, chicken and shrimp" class="card-img" loading="lazy">
             <span class="card-tag">SIGNATURE</span>
           </div>
           <div class="card-body">
@@ -215,7 +270,7 @@
 
         <article class="menu-card reveal">
           <div class="card-image-wrapper">
-            <img src="assets/food5.jpg" alt="Bussdown Designer Burrito cut open showing steak, sauce and garlic noodles" class="card-img" loading="lazy">
+            <img src="assets/food5.webp" alt="Bussdown Designer Burrito cut open showing steak, sauce and garlic noodles" class="card-img" loading="lazy">
             <span class="card-tag gold-tag">XXL PREMIUM</span>
           </div>
           <div class="card-body">
@@ -260,7 +315,7 @@
 
         <article class="menu-card reveal">
           <div class="card-image-wrapper">
-            <img src="assets/catering.jpg" alt="Full pan of Trappanyaki signature garlic noodles" class="card-img" loading="lazy">
+            <img src="assets/catering.webp" alt="Full pan of Trappanyaki signature garlic noodles" class="card-img" loading="lazy">
             <span class="card-tag drop-tag">HOUSE SPECIALTY</span>
           </div>
           <div class="card-body">
@@ -297,22 +352,18 @@
   </section>
 
   <!-- ============ LIVE BATCH TICKER ============ -->
-  <section class="ticker-section" id="ticker" aria-label="Live batch counts">
-    <div class="ticker-marquee" aria-hidden="true">
-      <div class="ticker-marquee-inner" id="marquee"></div>
-    </div>
-
+  <section class="ticker-section" id="ticker" aria-label="How a drop runs">
     <div class="container">
       <div class="ticker-grid">
         <div class="tick reveal">
-          <span class="tick-label">BATCHES SEARED TODAY</span>
-          <span class="tick-num" id="tick-batches" data-start="6">0</span>
-          <span class="tick-foot"><i class="pulse"></i> counting live</span>
+          <span class="tick-label">BATCHES PER DROP</span>
+          <span class="tick-num" id="tick-batches">6</span>
+          <span class="tick-foot">typical service</span>
         </div>
         <div class="tick reveal">
-          <span class="tick-label">PLATES OUT THE DOOR</span>
-          <span class="tick-num" id="tick-plates" data-start="47">0</span>
-          <span class="tick-foot">since 11:00 AM</span>
+          <span class="tick-label">PLATES PER SERVICE</span>
+          <span class="tick-num" id="tick-plates">48</span>
+          <span class="tick-foot">on a normal run</span>
         </div>
         <div class="tick reveal">
           <span class="tick-label">SLOTS LEFT IN THIS BATCH</span>
@@ -325,6 +376,7 @@
           <span class="tick-foot">minutes per tray</span>
         </div>
       </div>
+      <p class="ticker-note">Typical figures for a drop — not a live feed. Slots left updates as you build a batch below.</p>
     </div>
   </section>
 
@@ -476,9 +528,33 @@
 
           <h3 class="builder-sub">3 · PICKUP SLOT</h3>
           <div class="slot-list" id="slot-list" role="radiogroup" aria-label="Pickup slot">
-            <label class="slot"><input type="radio" name="slot" value="Tracy · 5:30 PM" checked><span>Tracy<b>5:30 PM</b></span></label>
-            <label class="slot"><input type="radio" name="slot" value="Tracy · 7:00 PM"><span>Tracy<b>7:00 PM</b></span></label>
-            <label class="slot"><input type="radio" name="slot" value="Tracy · 8:15 PM"><span>Tracy<b>8:15 PM</b></span></label>
+            <label class="slot"><input type="radio" name="slot" value="Tracy · 4:00 PM" checked><span>Tracy<b>4:00 PM</b></span></label>
+            <label class="slot"><input type="radio" name="slot" value="Tracy · 6:00 PM"><span>Tracy<b>6:00 PM</b></span></label>
+            <label class="slot"><input type="radio" name="slot" value="Tracy · 8:00 PM"><span>Tracy<b>8:00 PM</b></span></label>
+            <label class="slot"><input type="radio" name="slot" value="Tracy · 11:00 PM"><span>Tracy<b>11:00 PM</b></span></label>
+          </div>
+
+          <h3 class="builder-sub">4 · YOUR DETAILS</h3>
+          <div class="who">
+            <label class="field">
+              <span class="field-label">Name</span>
+              <input type="text" id="cust-name" name="name" autocomplete="name" required
+                     placeholder="Who's picking up?">
+            </label>
+            <label class="field">
+              <span class="field-label">Phone</span>
+              <input type="tel" id="cust-phone" name="phone" autocomplete="tel" required
+                     placeholder="So we can reach you about the batch">
+            </label>
+            <!-- honeypot: hidden from people, irresistible to bots -->
+            <label class="hp" aria-hidden="true">
+              <input type="checkbox" id="cust-botcheck" name="botcheck" tabindex="-1" autocomplete="off">
+            </label>
+            <label class="field field--wide">
+              <span class="field-label">Notes <em>optional</em></span>
+              <input type="text" id="cust-notes" name="notes"
+                     placeholder="Allergies, sauce on the side, anything else">
+            </label>
           </div>
         </div>
 
@@ -501,11 +577,14 @@
               <span>LIVE TOTAL</span>
               <b id="receipt-total">$0</b>
             </div>
-            <p class="receipt-slot">Pickup: <span id="receipt-slot">Tracy · 5:30 PM</span></p>
+            <p class="receipt-slot">Pickup: <span id="receipt-slot">Tracy · 4:00 PM</span></p>
 
-            <a href="https://square.link/u/6tGjr89x" target="_blank" rel="noopener noreferrer" class="btn btn-primary btn-block" id="lock-btn">Lock This Batch</a>
+            <button type="button" class="btn btn-primary btn-block" id="lock-btn">Send This Batch</button>
             <button type="button" class="btn btn-ghost btn-block" id="copy-btn">Copy Order Summary</button>
-            <p class="receipt-fine">Pickup only · Tracy, CA. Prices confirmed at checkout.</p>
+            <p class="receipt-msg" id="receipt-msg" role="status" aria-live="polite" hidden></p>
+            <a href="https://square.link/u/6tGjr89x" target="_blank" rel="noopener noreferrer"
+               class="btn btn-gold btn-block" id="pay-btn" hidden>Pay on Square</a>
+            <p class="receipt-fine">Pickup only · Tracy, CA · 3 PM–12 AM. We confirm your batch before you pay.</p>
           </div>
         </aside>
       </div>
@@ -528,7 +607,7 @@
         </details>
         <details class="faq-item">
           <summary>Where do I pick up?</summary>
-          <div class="faq-body"><p>Tracy, CA. Your exact pickup pin goes out with the confirmation once the batch locks. Pickup only — no delivery right now.</p></div>
+          <div class="faq-body"><p>Tracy, CA. Pickup runs at 4:00, 6:00, 8:00 and 11:00 PM — the kitchen is on from 3 PM to midnight. Your exact pin goes out with the confirmation once the batch locks. Pickup only, no delivery right now.</p></div>
         </details>
         <details class="faq-item">
           <summary>What's in the crossed drizzle?</summary>
@@ -559,9 +638,9 @@
 
     <div class="container footer-grid">
       <div class="footer-brand">
-        <img src="assets/logo.png" alt="Trappanyaki LLC" class="footer-logo" width="755" height="472" loading="lazy">
+        <img src="assets/logo.webp" alt="Trappanyaki LLC" class="footer-logo" width="320" height="200" loading="lazy">
         <p class="footer-tagline">"Bless ya taste buds"</p>
-        <p class="footer-foot">Luxury-street mobile hibachi · Tracy, CA · Pickup only</p>
+        <p class="footer-foot">Luxury-street mobile hibachi · Tracy, CA · Pickup only<br>Open 3 PM – 12 AM · pickup at 4, 6, 8 &amp; 11 PM</p>
       </div>
 
       <div class="footer-col">
@@ -574,7 +653,8 @@
       <div class="footer-col">
         <h4>BOOK</h4>
         <a href="mailto:trappanyakillc@gmail.com">trappanyakillc@gmail.com</a>
-        <a href="https://www.instagram.com/trappanyaki" target="_blank" rel="noopener noreferrer">@trappanyaki</a>
+        <a href="https://www.instagram.com/trappanyaki" target="_blank" rel="noopener noreferrer">Instagram · @trappanyaki</a>
+        <a href="https://www.tiktok.com/@trappanyaki" target="_blank" rel="noopener noreferrer">TikTok · @trappanyaki</a>
         <a href="#faq">Catering FAQ</a>
         <a href="#ledger">Spec Ledger</a>
       </div>

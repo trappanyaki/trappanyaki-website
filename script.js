@@ -92,7 +92,17 @@
       if (hudCh) hudCh.textContent = '0' + (i + 1);
     };
 
+    /* pull the macro frame down just before the push-in needs it */
+    var macroArmed = false;
+    var armMacro = function (p) {
+      if (macroArmed || p < 0.30 || !macro || !macro.dataset.src) return;
+      macroArmed = true;
+      macro.src = macro.dataset.src;
+    };
+
     var render = function (p) {
+      armMacro(p);
+
       /* HUD is always driven, even in video mode */
       if (railFill) railFill.style.width = (p * 100).toFixed(2) + '%';
       setChapter(clamp(Math.floor(p * 4), 0, 3));
@@ -230,27 +240,15 @@
   })();
 
   /* ==========================================================
-     4 · LIVE BATCH TICKER
+     4 · BATCH FIGURES
+     Batches and plates are typical figures, written in the markup — nothing
+     here counts anything. Slots left is real: the builder drives it.
      ========================================================== */
   var Ticker = (function ticker() {
-    var batches = $('#tick-batches');
-    var plates  = $('#tick-plates');
     var slots   = $('#tick-slots');
-    var marquee = $('#marquee');
     var footer  = $('#footer-status');
 
-    /* seeded off the clock so the numbers read plausible all day */
-    var hour = new Date().getHours();
-    var served = clamp(Math.round((hour - 11) * 7.5), 0, 92);
-    var batchCount = clamp(Math.round(served / 8) + 1, 1, 12);
     var slotsLeft = 8;
-
-    var bump = function (el, value) {
-      if (!el) return;
-      el.textContent = value;
-      el.classList.add('is-bumped');
-      setTimeout(function () { el.classList.remove('is-bumped'); }, 600);
-    };
 
     var paintFooter = function () {
       if (!footer) return;
@@ -259,29 +257,9 @@
         : 'This batch is closed · next drop posting soon';
     };
 
-    if (batches) batches.textContent = batchCount;
-    if (plates)  plates.textContent = served;
-    if (slots)   slots.textContent = slotsLeft;
+    if (slots) slots.textContent = slotsLeft;
     paintFooter();
 
-    if (marquee) {
-      var strip =
-        '<span>BLESS YA TASTE BUDS</span><span>·</span>' +
-        '<span>TRACY, CALIFORNIA</span><span>·</span>' +
-        '<span>8-PLATE BATCH CAP</span><span>·</span>' +
-        '<span><b>CROSSED DRIZZLE</b> — CHIPOTLE-ORANGE MAYO OVER DARK SOY</span><span>·</span>' +
-        '<span>PICKUP ONLY</span><span>·</span>' +
-        '<span>SEARED TO ORDER ON THE FLAT-TOP</span><span>·</span>';
-      marquee.innerHTML = strip + strip;
-    }
-
-    if (!reduced) {
-      setInterval(function () {
-        served += 1 + Math.floor(Math.random() * 2);
-        bump(plates, served);
-        if (Math.random() > 0.72) { batchCount += 1; bump(batches, batchCount); }
-      }, 9000);
-    }
 
     return {
       setSlots: function (n) {
@@ -313,6 +291,19 @@
     var totalEl  = $('#receipt-total');
     var slotEl   = $('#receipt-slot');
     var copyBtn  = $('#copy-btn');
+    var lockBtn  = $('#lock-btn');
+    var payBtn   = $('#pay-btn');
+    var msgEl    = $('#receipt-msg');
+    var nameEl   = $('#cust-name');
+    var phoneEl  = $('#cust-phone');
+    var notesEl  = $('#cust-notes');
+    var botEl    = $('#cust-botcheck');
+
+    /* Web3Forms access key. Public by design — it only permits posting to the
+       inbox configured in that account's dashboard, so no address or phone
+       number sits in this file. Rotate it there if it ever gets abused. */
+    var FORM_KEY = 'e33f75e6-e7a8-4c6a-88f0-8e723ba62b94';
+    var FORM_URL = 'https://api.web3forms.com/submit';
 
     var state = rows.map(function (row) {
       return {
@@ -432,6 +423,75 @@
           document.body.removeChild(ta);
           done();
         }
+      });
+    }
+
+    /* ---- send the batch --------------------------------------------------
+       The email body is built from the same summary() the receipt uses, so what
+       the kitchen reads is exactly what the customer saw on screen. */
+    var say = function (text, kind) {
+      if (!msgEl) return;
+      msgEl.textContent = text;
+      msgEl.hidden = !text;
+      msgEl.className = 'receipt-msg' + (kind ? ' is-' + kind : '');
+    };
+
+    var invalid = function () {
+      if (totalPlates() === 0) return { el: null, why: 'Add at least one plate first.' };
+      if (!nameEl.value.trim())  return { el: nameEl,  why: 'Add your name so we know who is picking up.' };
+      if (!phoneEl.value.trim()) return { el: phoneEl, why: 'Add a phone number so we can confirm the batch.' };
+      return null;
+    };
+
+    if (lockBtn) {
+      lockBtn.addEventListener('click', function () {
+        var bad = invalid();
+        if (bad) {
+          say(bad.why, 'warn');
+          if (bad.el) { bad.el.focus(); bad.el.classList.add('is-bad'); }
+          return;
+        }
+        [nameEl, phoneEl].forEach(function (el) { el.classList.remove('is-bad'); });
+
+        var lines = summary();
+        var body = [
+          'PLATES',
+          lines.join('\n'),
+          '',
+          'Pickup: ' + currentSlot(),
+          'Total:  ' + (totalEl ? totalEl.textContent : ''),
+          '',
+          'Name:   ' + nameEl.value.trim(),
+          'Phone:  ' + phoneEl.value.trim(),
+          'Notes:  ' + (notesEl.value.trim() || '—')
+        ].join('\n');
+
+        lockBtn.disabled = true;
+        var was = lockBtn.textContent;
+        lockBtn.textContent = 'Sending…';
+        say('', '');
+
+        fetch(FORM_URL, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
+          body: JSON.stringify({
+            access_key: FORM_KEY,
+            botcheck: botEl && botEl.checked ? true : false,
+            subject: '[TRAPP ORDER] ' + nameEl.value.trim() + ' · ' + currentSlot()
+                     + ' · ' + (totalEl ? totalEl.textContent : ''),
+            from_name: 'Trappanyaki site',
+            message: body
+          })
+        }).then(function (r) { return r.json(); }).then(function (res) {
+          if (!res || !res.success) throw new Error(res && res.message || 'rejected');
+          lockBtn.hidden = true;
+          if (payBtn) payBtn.hidden = false;
+          say('Batch sent. We will text you to confirm — pay on Square when you are ready.', 'ok');
+        }).catch(function () {
+          lockBtn.disabled = false;
+          lockBtn.textContent = was;
+          say('That did not send. Copy the summary below and text it to us — nothing is lost.', 'warn');
+        });
       });
     }
 
