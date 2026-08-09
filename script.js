@@ -208,15 +208,13 @@
   })();
 
   /* ==========================================================
-     3 · REVEALS + BAR FILLS
+     3 · REVEALS
      ========================================================== */
   (function reveals() {
     var items = $$('.reveal');
-    var bars = $$('[data-bars]');
 
     if (!('IntersectionObserver' in window) || reduced) {
       items.forEach(function (el) { el.classList.add('is-in'); });
-      bars.forEach(function (el) { el.classList.add('is-filled'); });
       return;
     }
 
@@ -228,21 +226,13 @@
       });
     }, { threshold: 0.16, rootMargin: '0px 0px -8% 0px' });
     items.forEach(function (el) { io.observe(el); });
-
-    var barIo = new IntersectionObserver(function (entries) {
-      entries.forEach(function (e) {
-        if (!e.isIntersecting) return;
-        e.target.classList.add('is-filled');
-        barIo.unobserve(e.target);
-      });
-    }, { threshold: 0.35 });
-    bars.forEach(function (el) { barIo.observe(el); });
   })();
 
   /* ==========================================================
      4 · BATCH FIGURES
-     Batches and plates are typical figures, written in the markup — nothing
-     here counts anything. Slots left is real: the builder drives it.
+     The cap, the pickup windows and the kitchen hours are fixed facts written
+     straight into the markup. Slots left is the only live one: the builder
+     drives it.
      ========================================================== */
   var Ticker = (function ticker() {
     var slots   = $('#tick-slots');
@@ -298,6 +288,15 @@
     var phoneEl  = $('#cust-phone');
     var notesEl  = $('#cust-notes');
     var botEl    = $('#cust-botcheck');
+
+    /* The send button's label, read before anything overwrites it. By the time
+       a send resolves the button already says "Sending…", so the handler's own
+       copy of the text cannot restore it. */
+    var lockLabel = lockBtn ? lockBtn.textContent : '';
+    /* sent, and untouched since — the next edit puts the send button back */
+    var awaitingEdit = false;
+    /* sent at least once, so later sends are corrections, not new orders */
+    var everSent = false;
 
     /* Web3Forms access key. Public by design — it only permits posting to the
        inbox configured in that account's dashboard, so no address or phone
@@ -377,6 +376,10 @@
 
       if (slotEl) slotEl.textContent = currentSlot();
       Ticker.setSlots(left);
+
+      /* The batch changed after it was sent, so what the kitchen has is now
+         stale. Put the send button back and say so. */
+      if (awaitingEdit) { awaitingEdit = false; armResend(); }
     }
 
     list.addEventListener('click', function (e) {
@@ -397,6 +400,15 @@
 
     addons.forEach(function (a) { a.addEventListener('change', paint); });
     slotInputs.forEach(function (i) { i.addEventListener('change', paint); });
+
+    /* Name, phone and notes never reach paint(), so a corrected phone number
+       after a send would otherwise leave the button hidden. */
+    [nameEl, phoneEl, notesEl].forEach(function (el) {
+      if (!el) return;
+      el.addEventListener('input', function () {
+        if (awaitingEdit) { awaitingEdit = false; armResend(); }
+      });
+    });
 
     if (copyBtn) {
       copyBtn.addEventListener('click', function () {
@@ -436,6 +448,19 @@
       msgEl.className = 'receipt-msg' + (kind ? ' is-' + kind : '');
     };
 
+    /* Hand the send button back after an edit. Paying is hidden again on
+       purpose: the Square button would otherwise sit there inviting payment
+       for a batch the kitchen never received. */
+    var armResend = function () {
+      if (lockBtn) {
+        lockBtn.hidden = false;
+        lockBtn.disabled = false;
+        lockBtn.textContent = 'Send Updated Batch';
+      }
+      if (payBtn) payBtn.hidden = true;
+      say('Order changed — send it again so the kitchen gets the update.', 'warn');
+    };
+
     var invalid = function () {
       if (totalPlates() === 0) return { el: null, why: 'Add at least one plate first.' };
       if (!nameEl.value.trim())  return { el: nameEl,  why: 'Add your name so we know who is picking up.' };
@@ -467,29 +492,57 @@
         ].join('\n');
 
         lockBtn.disabled = true;
-        var was = lockBtn.textContent;
         lockBtn.textContent = 'Sending…';
         say('', '');
+
+        /* Whoever gets here first owns the UI. Without this a request that
+           stalls past the deadline and then answers would flip the page to
+           "sent" after the customer had already been told it failed. */
+        var settled = false;
+
+        var ctl = window.AbortController ? new window.AbortController() : null;
+        /* A stalled request is the dangerous case: no rejection ever arrives,
+           so without a deadline the button sits on "Sending…" for good. */
+        var timer = setTimeout(function () {
+          if (settled) return;
+          settled = true;
+          if (ctl) ctl.abort();
+          lockBtn.disabled = false;
+          lockBtn.textContent = lockLabel;
+          say('That did not send. Copy the summary below and text it to us — nothing is lost.', 'warn');
+        }, 15000);
 
         fetch(FORM_URL, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
+          signal: ctl ? ctl.signal : undefined,
           body: JSON.stringify({
             access_key: FORM_KEY,
             botcheck: botEl && botEl.checked ? true : false,
             subject: '[TRAPP ORDER] ' + nameEl.value.trim() + ' · ' + currentSlot()
-                     + ' · ' + (totalEl ? totalEl.textContent : ''),
+                     + ' · ' + (totalEl ? totalEl.textContent : '')
+                     + (everSent ? ' · UPDATED' : ''),
             from_name: 'Trappanyaki site',
             message: body
           })
         }).then(function (r) { return r.json(); }).then(function (res) {
+          clearTimeout(timer);
+          if (settled) return;
+          /* claimed only once the send is known good, so a rejection still
+             falls through to the catch below */
           if (!res || !res.success) throw new Error(res && res.message || 'rejected');
+          settled = true;
           lockBtn.hidden = true;
           if (payBtn) payBtn.hidden = false;
+          awaitingEdit = true;
+          everSent = true;
           say('Batch sent. We will text you to confirm — pay on Square when you are ready.', 'ok');
         }).catch(function () {
+          clearTimeout(timer);
+          if (settled) return;
+          settled = true;
           lockBtn.disabled = false;
-          lockBtn.textContent = was;
+          lockBtn.textContent = lockLabel;
           say('That did not send. Copy the summary below and text it to us — nothing is lost.', 'warn');
         });
       });

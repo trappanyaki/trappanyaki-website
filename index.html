@@ -6,20 +6,11 @@
   <title>Trappanyaki LLC | Premium Mobile Hibachi &amp; Catering</title>
   <meta name="description" content="Trappanyaki LLC — luxury-street mobile hibachi out of Tracy, CA. Seared plates, signature garlic noodles and Bussdown Designer Burritos, dropped by the batch.">
   <meta name="theme-color" content="#0a0a0b">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <!-- Fonts load without blocking paint: the page renders immediately in the
-       Montserrat fallback and swaps when (or if) the CDN answers. -->
-  <link rel="preload" as="style"
-        href="https://fonts.googleapis.com/css2?family=Cinzel:wght@700;900&family=Montserrat:wght@400;600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap"
-        onload="this.onload=null;this.rel='stylesheet'">
-  <noscript>
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cinzel:wght@700;900&family=Montserrat:wght@400;600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap">
-  </noscript>
   <link rel="stylesheet" href="style.css">
 
   <link rel="icon" href="/favicon.ico" sizes="any">
   <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+  <link rel="manifest" href="/site.webmanifest">
   <link rel="canonical" href="https://trappanyaki.netlify.app/">
 
   <!-- Absolute URLs: scrapers do not resolve relative paths. -->
@@ -67,7 +58,7 @@
 </head>
 <body>
 
-  <a class="skip-link" href="#take">Skip to content</a>
+  <a class="skip-link" href="#main">Skip to content</a>
 
   <!-- ============ NAV ============ -->
   <header class="navbar" id="navbar">
@@ -93,6 +84,8 @@
   </header>
 
   <span id="top"></span>
+
+  <main id="main">
 
   <!-- ============ THE TAKE — one continuous scrubbed shot, 4 chapters ============ -->
   <section class="take" id="take" aria-label="The Take — hibachi tray sequence">
@@ -145,7 +138,7 @@
         <div class="take-hud">
           <div class="hud-scrim" id="hud-scrim" aria-hidden="true"></div>
           <div class="hud-top">
-            <span class="hud-mark">TRAPPANYAKI</span>
+            <h1 class="hud-mark">TRAPPANYAKI</h1>
             <span class="hud-take">ONE TAKE · NO CUTS</span>
           </div>
 
@@ -199,20 +192,19 @@
   <section class="ledger" id="ledger" aria-label="Plate specification ledger">
     <div class="container">
       <div class="ledger-head">
-        <span class="eyebrow eyebrow--dark">SPEC LEDGER</span>
         <h2 class="ledger-title">THE PLATE, ON THE RECORD</h2>
         <p class="ledger-sub">Every tray that leaves the flat-top hits the same marks. No off-nights.</p>
       </div>
 
       <dl class="ledger-rows">
         <div class="ledger-row reveal">
-          <dt>PROTEIN</dt><dd>Seared chicken bites · thigh &amp; breast cut to the same weight</dd><span class="ledger-val">6 OZ</span>
+          <dt>PROTEIN</dt><dd>Seared chicken bites, cut down before they hit the flat-top</dd><span class="ledger-val">CUT TO SIZE</span>
         </div>
         <div class="ledger-row reveal">
-          <dt>SEAR</dt><dd>Flat-top, hard char edge, rested 90 seconds before it plates</dd><span class="ledger-val">600°F</span>
+          <dt>SEAR</dt><dd>Flat-top, hard char edge, rested before it plates</dd><span class="ledger-val">HARD CHAR</span>
         </div>
         <div class="ledger-row reveal">
-          <dt>GLAZE</dt><dd>Crossed drizzle — chipotle-orange mayo laid over dark soy glaze</dd><span class="ledger-val">2 PASS</span>
+          <dt>GLAZE</dt><dd>Crossed drizzle — chipotle-orange mayo laid over dark soy glaze</dd><span class="ledger-val">CROSSED</span>
         </div>
         <div class="ledger-row reveal">
           <dt>FINISH</dt><dd>Fresh-cut scallion rings, thrown on after the heat, never before</dd><span class="ledger-val">CUT-TO-ORDER</span>
@@ -231,7 +223,6 @@
   <section class="menu-section" id="menu" aria-label="Menu">
     <div class="container">
       <div class="section-header">
-        <span class="eyebrow">THE SELECTION</span>
         <h2 class="section-title">EXECUTIVE MENU</h2>
         <div class="gold-divider"></div>
       </div>
@@ -356,27 +347,27 @@
     <div class="container">
       <div class="ticker-grid">
         <div class="tick reveal">
-          <span class="tick-label">BATCHES PER DROP</span>
-          <span class="tick-num" id="tick-batches">6</span>
-          <span class="tick-foot">typical service</span>
+          <span class="tick-label">BATCH CAP</span>
+          <span class="tick-num" id="tick-cap">8</span>
+          <span class="tick-foot">plates per drop</span>
         </div>
         <div class="tick reveal">
-          <span class="tick-label">PLATES PER SERVICE</span>
-          <span class="tick-num" id="tick-plates">48</span>
-          <span class="tick-foot">on a normal run</span>
+          <span class="tick-label">PICKUP WINDOWS</span>
+          <span class="tick-num" id="tick-windows">4</span>
+          <span class="tick-foot">4, 6, 8 &amp; 11 PM</span>
         </div>
         <div class="tick reveal">
           <span class="tick-label">SLOTS LEFT IN THIS BATCH</span>
           <span class="tick-num tick-num--red" id="tick-slots">8</span>
-          <span class="tick-foot">cap is 8 plates</span>
+          <span class="tick-foot">updates as you build</span>
         </div>
         <div class="tick reveal">
-          <span class="tick-label">AVG SEAR TO LID</span>
-          <span class="tick-num" id="tick-sear">9<small>:40</small></span>
-          <span class="tick-foot">minutes per tray</span>
+          <span class="tick-label">KITCHEN HOURS</span>
+          <span class="tick-num">3<small>–12</small></span>
+          <span class="tick-foot">PM to midnight · Tracy, CA</span>
         </div>
       </div>
-      <p class="ticker-note">Typical figures for a drop — not a live feed. Slots left updates as you build a batch below.</p>
+      <p class="ticker-note">Slots left is driven by the batch you build below. Everything else is how the drop is set up, not a live feed.</p>
     </div>
   </section>
 
@@ -384,33 +375,32 @@
   <section class="breakdown" id="breakdown" aria-label="Protein and sauce breakdown">
     <div class="container">
       <div class="section-header">
-        <span class="eyebrow">WHAT'S ACTUALLY ON THE TRAY</span>
         <h2 class="section-title">PROTEIN &amp; SAUCE</h2>
         <div class="gold-divider"></div>
       </div>
 
       <div class="breakdown-grid">
         <div class="bd-card reveal">
-          <h3 class="bd-title"><span class="bd-dot bd-dot--red"></span>PROTEIN SPLIT</h3>
-          <p class="bd-note">How a standard 8-plate batch usually goes out.</p>
-          <ul class="bars" data-bars>
-            <li><span class="bar-name">Seared Chicken</span><span class="bar-track"><i style="--w:42%"></i></span><span class="bar-val">42%</span></li>
-            <li><span class="bar-name">Ribeye Steak</span><span class="bar-track"><i style="--w:26%"></i></span><span class="bar-val">26%</span></li>
-            <li><span class="bar-name">Jumbo Shrimp</span><span class="bar-track"><i style="--w:18%"></i></span><span class="bar-val">18%</span></li>
-            <li><span class="bar-name">Salmon</span><span class="bar-track"><i style="--w:9%"></i></span><span class="bar-val">9%</span></li>
-            <li><span class="bar-name">Veg Only</span><span class="bar-track"><i style="--w:5%"></i></span><span class="bar-val">5%</span></li>
+          <h3 class="bd-title">THE PROTEIN BOARD</h3>
+          <p class="bd-note">What the flat-top runs. Every one of them plates the same way.</p>
+          <ul class="spec-list">
+            <li><span class="spec-name">Seared Chicken</span><span class="spec-note">thigh and breast, hard char</span></li>
+            <li><span class="spec-name">Ribeye Steak</span><span class="spec-note">sliced, seared to order</span></li>
+            <li><span class="spec-name">Jumbo Shrimp</span><span class="spec-note">shell off, quick on the heat</span></li>
+            <li><span class="spec-name">Salmon &amp; Scallops</span><span class="spec-note">crisp edge, soft centre</span></li>
+            <li><span class="spec-name">Lobster &amp; Filet</span><span class="spec-note">the top of the board</span></li>
           </ul>
         </div>
 
         <div class="bd-card reveal">
-          <h3 class="bd-title"><span class="bd-dot bd-dot--gold"></span>SAUCE BUILD</h3>
-          <p class="bd-note">The crossed drizzle, by weight, per tray.</p>
-          <ul class="bars bars--gold" data-bars>
-            <li><span class="bar-name">Chipotle-Orange Mayo</span><span class="bar-track"><i style="--w:38%"></i></span><span class="bar-val">38%</span></li>
-            <li><span class="bar-name">Dark Soy Glaze</span><span class="bar-track"><i style="--w:31%"></i></span><span class="bar-val">31%</span></li>
-            <li><span class="bar-name">Garlic Butter</span><span class="bar-track"><i style="--w:16%"></i></span><span class="bar-val">16%</span></li>
-            <li><span class="bar-name">Yum Yum</span><span class="bar-track"><i style="--w:10%"></i></span><span class="bar-val">10%</span></li>
-            <li><span class="bar-name">Scallion &amp; Sesame</span><span class="bar-track"><i style="--w:5%"></i></span><span class="bar-val">5%</span></li>
+          <h3 class="bd-title">THE CROSSED DRIZZLE</h3>
+          <p class="bd-note">What goes over the tray, in the order it lands.</p>
+          <ul class="spec-list spec-list--gold">
+            <li><span class="spec-name">Dark Soy Glaze</span><span class="spec-note">down first, straight off the heat</span></li>
+            <li><span class="spec-name">Chipotle-Orange Mayo</span><span class="spec-note">crossed over the top</span></li>
+            <li><span class="spec-name">Garlic Butter</span><span class="spec-note">on the noodles and the rice</span></li>
+            <li><span class="spec-name">Yum Yum</span><span class="spec-note">on every hibachi plate</span></li>
+            <li><span class="spec-name">Scallion &amp; Sesame</span><span class="spec-note">fresh-cut, after the heat</span></li>
           </ul>
         </div>
       </div>
@@ -421,7 +411,6 @@
   <section class="builder" id="builder" aria-label="Batch slot builder">
     <div class="container">
       <div class="section-header">
-        <span class="eyebrow">RESERVE YOUR SLOTS</span>
         <h2 class="section-title">BUILD YOUR BATCH</h2>
         <div class="gold-divider"></div>
         <p class="section-lede">Each drop runs a hard cap of <b>8 plates</b>. Lock your slots, then send it through Square.</p>
@@ -595,7 +584,6 @@
   <section class="faq" id="faq" aria-label="Frequently asked questions">
     <div class="container container--narrow">
       <div class="section-header">
-        <span class="eyebrow">BEFORE YOU ORDER</span>
         <h2 class="section-title">FAQ</h2>
         <div class="gold-divider"></div>
       </div>
@@ -628,6 +616,8 @@
       </div>
     </div>
   </section>
+
+  </main>
 
   <!-- ============ GRILL-PLATE FOOTER ============ -->
   <footer class="grill-footer" aria-label="Footer">

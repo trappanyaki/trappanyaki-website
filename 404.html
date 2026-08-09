@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Page not found | Trappanyaki LLC</title>
+  <meta name="theme-color" content="#0a0a0b">
+  <meta name="robots" content="noindex">
+  <link rel="icon" href="/favicon.ico" sizes="any">
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+  <!-- Shares the main stylesheet: same origin, already cached from the page
+       the visitor most likely came from. -->
+  <link rel="stylesheet" href="style.css">
+  <style>
+    /* The only rules this page needs that style.css does not already carry. */
+    .lost{
+      min-height:100vh;display:flex;flex-direction:column;
+      align-items:center;justify-content:center;text-align:center;
+      gap:.2rem;padding:2rem 6vw;
+      background:
+        radial-gradient(48% 42% at 50% 42%, rgba(230,51,41,.10), transparent 72%),
+        var(--char-900);
+    }
+    .lost-logo{width:min(210px,58vw);height:auto;margin-bottom:2rem;
+      filter:drop-shadow(0 4px 18px rgba(193,18,31,.3));}
+    .lost-code{font-family:var(--display);font-weight:900;
+      font-size:clamp(3.4rem,13vw,6.4rem);line-height:1;color:var(--red-hot);
+      letter-spacing:.04em;text-shadow:0 18px 50px rgba(0,0,0,.7);}
+    .lost-line{margin-top:1rem;color:var(--ash);max-width:44ch;}
+    .lost-actions{display:flex;gap:.9rem;margin-top:2.2rem;flex-wrap:wrap;
+      justify-content:center;}
+  </style>
+</head>
+<body>
+  <main class="lost">
+    <img src="assets/logo.webp" alt="Trappanyaki LLC" class="lost-logo" width="320" height="200">
+    <p class="lost-code">404</p>
+    <p class="lost-line">That page is not on the board. The plates, the ritos and
+      the garlic noodles are all still where you left them.</p>
+
+    <div class="lost-actions">
+      <a href="/" class="btn btn-primary">Back to the site</a>
+      <a href="/#menu" class="btn btn-ghost">See the menu</a>
+    </div>
+  </main>
+  <!-- Deliberately no script.js: nothing here is interactive, and the builder
+       would throw on the missing #plate-list. -->
+</body>
+</html>
