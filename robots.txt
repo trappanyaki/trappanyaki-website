@@ -1,5 +1,0 @@
-# Trappanyaki LLC — nothing here is private. Being missed is the only risk.
-User-agent: *
-Allow: /
-
-Sitemap: https://trappanyaki.netlify.app/sitemap.xml
