@@ -519,9 +519,9 @@
       msgEl.className = 'receipt-msg' + (kind ? ' is-' + kind : '');
     };
 
-    /* Hand the send button back after an edit. Paying is hidden again on
-       purpose: the Square button would otherwise sit there inviting payment
-       for a batch the kitchen never received. */
+    /* Hand the send button back after an edit. Payment info is hidden again on
+       purpose: it would otherwise sit there inviting payment for a batch the
+       kitchen never received. */
     var armResend = function () {
       if (lockBtn) {
         lockBtn.hidden = false;
@@ -607,7 +607,8 @@
           if (payBtn) payBtn.hidden = false;
           awaitingEdit = true;
           everSent = true;
-          say('Batch sent. We will text you to confirm — pay on Square when you are ready.', 'ok');
+          if (typeof fbq !== 'undefined') fbq('track', 'Lead');
+          say('Batch sent. We will text you to confirm — pay at pickup when you are ready.', 'ok');
         }).catch(function () {
           clearTimeout(timer);
           if (settled) return;
@@ -628,6 +629,13 @@
   (function misc() {
     var year = $('#year');
     if (year) year.textContent = new Date().getFullYear();
+
+    /* Meta Pixel — track DM-order clicks as Leads alongside the batch builder */
+    if (typeof fbq !== 'undefined') {
+      $$('a[href*="ig.me/m/TRAPPANYAKI"]').forEach(function (link) {
+        link.addEventListener('click', function () { fbq('track', 'Lead'); });
+      });
+    }
 
     /* one FAQ panel open at a time */
     var faqs = $$('.faq-item');

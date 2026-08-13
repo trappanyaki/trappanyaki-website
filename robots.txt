@@ -2,4 +2,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://trappanyaki.netlify.app/sitemap.xml
+Sitemap: https://trappanyaki.com/sitemap.xml
