@@ -242,7 +242,94 @@
   })();
 
   /* ==========================================================
-     4 · BATCH FIGURES
+     4 · BATCH REEL — small looping card in the ticker section
+     Ambient, not a one-time reveal, so it's allowed to loop and to resume
+     when scrolled back into view. Same load-on-demand and reduced-motion
+     rules as the brand sting below.
+     ========================================================== */
+  (function batchReel() {
+    var card = $('.ticker-reel');
+    var video = $('#batch-loop-video');
+    if (!card || !video) return;
+
+    if (reduced) return; // poster only, via the video's poster attribute
+
+    var armed = false;
+    var arm = function () {
+      if (armed) return;
+      armed = true;
+      $$('source', video).forEach(function (s) { s.src = s.dataset.src; });
+      video.load();
+    };
+
+    if (!('IntersectionObserver' in window)) {
+      arm();
+      video.play().catch(function () {});
+      return;
+    }
+
+    new IntersectionObserver(function (entries) {
+      if (entries[0].isIntersecting) {
+        arm();
+        video.play().catch(function () {});
+      } else {
+        video.pause();
+      }
+    }, { threshold: 0.3 }).observe(card);
+  })();
+
+  /* ==========================================================
+     5 · BRAND STING
+     Loads nothing until the section is nearly in view, plays once, pauses if
+     scrolled away mid-play. Reduced motion never arms it — the poster frame
+     (logo-sting-poster.webp, set via the video's poster attribute) is the
+     whole experience in that case.
+     ========================================================== */
+  (function sting() {
+    var section = $('#sting');
+    var stage = $('.sting-stage', section);
+    var video = $('#sting-video');
+    if (!section || !video) return;
+
+    if (reduced) {
+      if (stage) stage.classList.add('is-in');
+      return;
+    }
+
+    var armed = false;
+    var played = false;
+
+    var arm = function () {
+      if (armed) return;
+      armed = true;
+      $$('source', video).forEach(function (s) { s.src = s.dataset.src; });
+      video.load();
+    };
+
+    var enter = function () {
+      if (stage) stage.classList.add('is-in');
+      if (played) return;
+      arm();
+      video.play().then(function () { played = true; }).catch(function () {});
+    };
+
+    if (!('IntersectionObserver' in window)) {
+      enter();
+      return;
+    }
+
+    new IntersectionObserver(function (entries) {
+      var e = entries[0];
+      if (e.isIntersecting) {
+        enter();
+      } else if (played && !video.ended) {
+        video.pause();
+      }
+    }, { threshold: 0.4, rootMargin: '0px 0px -10% 0px' }).observe(section);
+  })();
+
+  /* ==========================================================
+     6 · BATCH FIGURES
      The cap, the pickup windows and the kitchen hours are fixed facts written
      straight into the markup. Slots left is the only live one: the builder
      drives it.
@@ -274,7 +361,7 @@
   })();
 
   /* ==========================================================
-     5 · BATCH-SLOT BUILDER (hard cap: 8 plates)
+     7 · BATCH-SLOT BUILDER (hard cap: 8 plates)
      ========================================================== */
   (function builder() {
     var list = $('#plate-list');
@@ -624,7 +711,7 @@
   })();
 
   /* ==========================================================
-     6 · SMALL STUFF
+     8 · SMALL STUFF
      ========================================================== */
   (function misc() {
     var year = $('#year');

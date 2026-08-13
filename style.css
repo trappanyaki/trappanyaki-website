@@ -507,6 +507,18 @@ input,textarea{caret-color:var(--red-hot);}
    ============================================================ */
 .ticker-section{background:var(--char-900);padding:5rem 0 6.5rem;border-top:1px solid rgba(244,241,234,.06);}
 
+.ticker-layout{display:grid;grid-template-columns:1fr auto;gap:2.4rem;align-items:center;}
+.ticker-reel{
+  position:relative;width:180px;aspect-ratio:9/16;border-radius:4px;overflow:hidden;
+  background:#000;box-shadow:0 30px 70px -36px rgba(0,0,0,.9);flex:none;
+}
+.ticker-reel-video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;background:#000;}
+.ticker-reel-cap{
+  position:absolute;left:0;right:0;bottom:0;padding:.6rem .7rem .55rem;
+  background:linear-gradient(0deg,rgba(0,0,0,.82),transparent);
+  font-size:var(--fs-micro);letter-spacing:.14em;text-transform:uppercase;color:var(--bone);font-weight:700;
+}
+
 .ticker-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:1rem;}
 .tick{
   background:linear-gradient(180deg,var(--char-800),var(--char-850));
@@ -551,6 +563,20 @@ input,textarea{caret-color:var(--red-hot);}
 .spec-list--gold li::before{background:var(--gold);}
 .spec-name{font-size:var(--fs-body-lg);color:var(--bone);font-weight:700;}
 .spec-note{margin-left:auto;font-size:var(--fs-caption);color:var(--ash-dim);text-align:right;line-height:var(--lh-prose);letter-spacing:var(--ls-prose);}
+
+/* ============================================================
+   BRAND STING
+   ============================================================ */
+.sting{background:var(--char-900);padding:2rem 0 5rem;}
+.sting-stage{
+  position:relative;width:min(880px,88vw);margin-inline:auto;aspect-ratio:16/9;
+  border-radius:4px;overflow:hidden;background:#000;
+  box-shadow:0 40px 90px -40px rgba(0,0,0,.9);
+  opacity:0;transform:scale(.94);
+  transition:opacity .45s var(--ease),transform .45s var(--ease);
+}
+.sting-stage.is-in{opacity:1;transform:none;}
+.sting-video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;background:#000;}
 
 /* ============================================================
    BUILDER
@@ -820,6 +846,8 @@ input,textarea{caret-color:var(--red-hot);}
    RESPONSIVE
    ============================================================ */
 @media (max-width:960px){
+  .ticker-layout{grid-template-columns:1fr;}
+  .ticker-reel{width:100%;max-width:280px;margin-inline:auto;}
   .builder-grid{grid-template-columns:1fr;}
   .who{grid-template-columns:1fr;}
   .builder-receipt{position:static;}

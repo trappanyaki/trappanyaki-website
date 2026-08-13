@@ -249,7 +249,7 @@
       <div class="menu-grid">
         <article class="menu-card reveal">
           <div class="card-image-wrapper">
-            <img src="food2.webp" alt="Premium hibachi plate with steak, chicken and shrimp" class="card-img" loading="lazy">
+            <img src="food-hibachi-plate.webp" alt="Seared hibachi chicken plate with crossed chipotle-orange mayo and dark soy glaze, fresh scallion, in a matte black snap-lid tray" class="card-img" loading="lazy">
             <span class="card-tag">SIGNATURE</span>
           </div>
           <div class="card-body">
@@ -364,29 +364,42 @@
   <!-- ============ LIVE BATCH TICKER ============ -->
   <section class="ticker-section" id="ticker" aria-label="How a drop runs">
     <div class="container">
-      <div class="ticker-grid">
-        <div class="tick reveal">
-          <span class="tick-label">BATCH CAP</span>
-          <span class="tick-num" id="tick-cap">8</span>
-          <span class="tick-foot">plates per drop</span>
+      <div class="ticker-layout">
+        <div class="ticker-main">
+          <div class="ticker-grid">
+            <div class="tick reveal">
+              <span class="tick-label">BATCH CAP</span>
+              <span class="tick-num" id="tick-cap">8</span>
+              <span class="tick-foot">plates per drop</span>
+            </div>
+            <div class="tick reveal">
+              <span class="tick-label">PICKUP WINDOWS</span>
+              <span class="tick-num" id="tick-windows">4</span>
+              <span class="tick-foot">4, 6, 8 &amp; 11 PM</span>
+            </div>
+            <div class="tick reveal">
+              <span class="tick-label">SLOTS LEFT IN THIS BATCH</span>
+              <span class="tick-num tick-num--red" id="tick-slots">8</span>
+              <span class="tick-foot">updates as you build</span>
+            </div>
+            <div class="tick reveal">
+              <span class="tick-label">KITCHEN HOURS</span>
+              <span class="tick-num">3<small>–12</small></span>
+              <span class="tick-foot">PM to midnight · Tracy, CA</span>
+            </div>
+          </div>
+          <p class="ticker-note">Slots left is driven by the batch you build below. Everything else is how the drop is set up, not a live feed.</p>
         </div>
-        <div class="tick reveal">
-          <span class="tick-label">PICKUP WINDOWS</span>
-          <span class="tick-num" id="tick-windows">4</span>
-          <span class="tick-foot">4, 6, 8 &amp; 11 PM</span>
-        </div>
-        <div class="tick reveal">
-          <span class="tick-label">SLOTS LEFT IN THIS BATCH</span>
-          <span class="tick-num tick-num--red" id="tick-slots">8</span>
-          <span class="tick-foot">updates as you build</span>
-        </div>
-        <div class="tick reveal">
-          <span class="tick-label">KITCHEN HOURS</span>
-          <span class="tick-num">3<small>–12</small></span>
-          <span class="tick-foot">PM to midnight · Tracy, CA</span>
+
+        <div class="ticker-reel reveal">
+          <video class="ticker-reel-video" id="batch-loop-video" muted playsinline loop preload="none"
+                 poster="batch-loop-poster.webp" aria-hidden="true">
+            <source data-src="batch-loop.webm" type="video/webm">
+            <source data-src="batch-loop.mp4" type="video/mp4">
+          </video>
+          <span class="ticker-reel-cap">Last batch, before pickup</span>
         </div>
       </div>
-      <p class="ticker-note">Slots left is driven by the batch you build below. Everything else is how the drop is set up, not a live feed.</p>
     </div>
   </section>
 
@@ -422,6 +435,19 @@
             <li><span class="spec-name">Scallion &amp; Sesame</span><span class="spec-note">fresh-cut, after the heat</span></li>
           </ul>
         </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ BRAND STING ============ -->
+  <section class="sting" id="sting" aria-label="Trappanyaki brand mark">
+    <div class="container">
+      <div class="sting-stage">
+        <video class="sting-video" id="sting-video" muted playsinline preload="none"
+               poster="logo-sting-poster.webp" aria-hidden="true">
+          <source data-src="logo-sting.webm" type="video/webm">
+          <source data-src="logo-sting.mp4" type="video/mp4">
+        </video>
       </div>
     </div>
   </section>
