@@ -222,7 +222,7 @@ input,textarea{caret-color:var(--red-hot);}
 .take{position:relative;background:var(--char-900);}
 .take-track{height:460vh;position:relative;}
 .take-stage{
-  position:sticky;top:0;height:100vh;height:100dvh;overflow:hidden;
+  height:100vh;height:100dvh;overflow:hidden;
   display:flex;align-items:center;justify-content:center;
   perspective:1200px;
 }

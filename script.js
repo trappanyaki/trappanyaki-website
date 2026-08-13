@@ -182,19 +182,6 @@
       macro.style.transform = 'scale(' + lerp(1.6, 1.02, m).toFixed(3) + ')';
     };
 
-    var ticking = false;
-    var onScroll = function () {
-      if (ticking) return;
-      ticking = true;
-      window.requestAnimationFrame(function () {
-        ticking = false;
-        var rect = track.getBoundingClientRect();
-        var total = track.offsetHeight - window.innerHeight;
-        var p = clamp(-rect.top / (total || 1), 0, 1);
-        render(p);
-      });
-    };
-
     if (reduced) {
       stage.classList.remove('has-video');
       render(0.78);   /* the assembled plate — every layer landed, before the macro push */
@@ -203,8 +190,22 @@
     }
 
     render(0);
-    window.addEventListener('scroll', onScroll, { passive: true });
-    window.addEventListener('resize', onScroll);
+
+    /* GSAP/ScrollTrigger replaces the rAF-throttled scroll listener, the
+       position:sticky pin (see .take-stage in style.css), and the plain
+       resize listener — ScrollTrigger recalculates start/end and re-fires
+       onUpdate on resize automatically. render() itself is unchanged, so
+       the sequence looks identical to the hand-rolled version. */
+    gsap.registerPlugin(ScrollTrigger);
+
+    ScrollTrigger.create({
+      trigger: track,
+      start: 'top top',
+      end: 'bottom bottom',
+      pin: stage,
+      scrub: true,
+      onUpdate: function (self) { render(self.progress); }
+    });
 
     /* Hold the compositor layers only while the take is on screen. The margin
        gives the browser a screen of warning in each direction, so the hint is
