@@ -205,6 +205,18 @@
     render(0);
     window.addEventListener('scroll', onScroll, { passive: true });
     window.addEventListener('resize', onScroll);
+
+    /* Hold the compositor layers only while the take is on screen. The margin
+       gives the browser a screen of warning in each direction, so the hint is
+       in place well before the first frame that needs it. Without an observer
+       the layers stay promoted for the life of the page. */
+    if ('IntersectionObserver' in window) {
+      new IntersectionObserver(function (entries) {
+        stage.classList.toggle('is-running', entries[0].isIntersecting);
+      }, { rootMargin: '100% 0px' }).observe(track);
+    } else {
+      stage.classList.add('is-running');
+    }
   })();
 
   /* ==========================================================
@@ -280,6 +292,7 @@
     var linesEl  = $('#receipt-lines');
     var totalEl  = $('#receipt-total');
     var slotEl   = $('#receipt-slot');
+    var statusEl = $('#batch-status');
     var copyBtn  = $('#copy-btn');
     var lockBtn  = $('#lock-btn');
     var payBtn   = $('#pay-btn');
@@ -387,6 +400,18 @@
         lastTotal = total;
       }
 
+      /* One spoken sentence for the whole change, instead of the receipt
+         re-reading itself line by line. Only written when the wording actually
+         differs, or assistive tech would repeat it on every repaint. */
+      if (statusEl) {
+        var spoken = used === 0
+          ? 'Batch empty'
+          : used + (used === 1 ? ' plate' : ' plates') + ' of ' + CAP +
+            (full ? ', batch full' : ', ' + left + ' still open') +
+            '. Total ' + money(total) + '.';
+        if (statusEl.textContent !== spoken) statusEl.textContent = spoken;
+      }
+
       /* receipt lines */
       if (linesEl) {
         var lines = summary();
@@ -396,12 +421,16 @@
         var keys = lines.map(function (l) {
           return l.split(' — ')[0].replace(/^\d+×\s*/, '');
         });
-        linesEl.innerHTML = lines.length
+        var html = lines.length
           ? lines.map(function (l) {
               var parts = l.split(' — ');
               return '<li><span>' + parts[0] + '</span><b>' + parts[1] + '</b></li>';
             }).join('')
           : '<li class="receipt-empty">No plates yet. Start with the chicken.</li>';
+        /* Rewriting identical markup still counts as a DOM change, and paint()
+           runs on every stepper tap, checkbox and slot change. Only touch it
+           when the receipt genuinely differs. */
+        if (linesEl.innerHTML !== html) linesEl.innerHTML = html;
         /* Animate only the lines that were not on the receipt a moment ago. A
            quantity going 2 → 3 rewrites its line but should not re-enter it. */
         $$('li', linesEl).forEach(function (li, i) {
@@ -410,7 +439,12 @@
         lastKeys = keys;
       }
 
-      if (slotEl) slotEl.textContent = currentSlot();
+      /* The pickup slot rarely changes, but this reassignment ran on every tap
+         and re-announced "Tracy · 4:00 PM" each time. */
+      if (slotEl) {
+        var slotText = currentSlot();
+        if (slotEl.textContent !== slotText) slotEl.textContent = slotText;
+      }
       Ticker.setSlots(left);
 
       /* The batch changed after it was sent, so what the kitchen has is now

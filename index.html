@@ -548,9 +548,18 @@
         </div>
 
         <!-- live receipt -->
-        <aside class="builder-receipt" aria-live="polite">
+        <!-- This aside used to carry aria-live itself. Every repaint rewrites the
+             whole receipt, so one tap on a stepper fired five separate
+             announcements — the count, the plates left, the total, every line on
+             the receipt, and the pickup time that had not even changed. With
+             four lines on the receipt it reached seven. The batch summary below
+             replaces all of it with a single spoken sentence. -->
+        <aside class="builder-receipt">
           <div class="receipt-inner">
             <span class="receipt-eyebrow">YOUR BATCH</span>
+
+            <!-- The one thing a screen reader announces when the batch changes. -->
+            <p class="sr-only" id="batch-status" role="status" aria-live="polite" aria-atomic="true"></p>
 
             <div class="cap-wrap">
               <div class="cap-bar"><i id="cap-fill"></i></div>
