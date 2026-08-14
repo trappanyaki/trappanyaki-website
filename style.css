@@ -225,7 +225,7 @@ input,textarea{caret-color:var(--red-hot);}
 /* ============================================================
    THE TAKE — static hero (the scrubbed 3D take was broken on
    deploy: wrong chapter on load, tray rendering as an empty
-   gray box. Replaced with a plain hero banner — same photo,
+   gray box. Replaced with a plain hero banner: mascot art,
    headline and CTAs, no scroll-driven animation to break.)
    ============================================================ */
 .take{position:relative;background:var(--char-900);}
@@ -233,16 +233,21 @@ input,textarea{caret-color:var(--red-hot);}
   position:relative;min-height:100vh;min-height:100dvh;overflow:hidden;
   display:flex;align-items:flex-end;
 }
-.take-hero{
-  position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:1;
+.take-glow{
+  position:absolute;inset:-20%;pointer-events:none;
+  background:
+    radial-gradient(55% 55% at 80% 62%, rgba(230,51,41,.18), transparent 70%),
+    radial-gradient(45% 45% at 12% 12%, rgba(216,180,90,.09), transparent 70%),
+    var(--char-900);
 }
-.hud-scrim{
-  position:absolute;inset:0;pointer-events:none;z-index:2;
-  background:linear-gradient(0deg,rgba(8,8,10,.92) 0%,rgba(8,8,10,.55) 40%,rgba(8,8,10,.1) 68%,transparent 85%);
+.take-hero{
+  position:absolute;right:min(3vw,3rem);bottom:0;z-index:1;
+  height:min(92%,860px);width:auto;max-width:56vw;object-fit:contain;object-position:bottom;
+  filter:drop-shadow(0 40px 70px rgba(0,0,0,.65));
 }
 
 .take-hud{
-  position:relative;z-index:3;width:min(1320px,94vw);margin:0 auto;
+  position:relative;z-index:2;width:min(1320px,94vw);margin:0 auto;
   padding:8rem 0 4rem;
 }
 .hud-mark{
@@ -811,13 +816,16 @@ input,textarea{caret-color:var(--red-hot);}
   .nav-link{font-size:1rem;}
   .mobile-toggle{display:block;z-index:2;}
   .shift-track{height:260vh;}
-  /* the stack sits over the copy on narrow screens — ground it from the bottom */
-  .hud-scrim{
-    background:linear-gradient(180deg,rgba(8,8,10,.55) 0%,rgba(8,8,10,.82) 42%,rgba(8,8,10,.94) 100%);
-  }
   .brand-logo{width:96px;}
   .navbar.is-stuck .brand-logo{width:84px;}
-  .take-hud{padding-top:7rem;}
+  /* mascot stacks above the copy instead of sitting beside it */
+  .take-stage{min-height:auto;display:block;padding-top:6.4rem;}
+  .take-glow{inset:-10%;}
+  .take-hero{
+    position:relative;right:auto;bottom:auto;z-index:0;display:block;
+    height:auto;width:min(72vw,320px);max-width:none;margin:0 auto 1.2rem;
+  }
+  .take-hud{padding:0 0 3rem;}
 }
 /* Touch targets. The visual size stays as designed; an invisible pseudo
    element widens the hit area to the 44px WCAG 2.5.5 / Apple HIG minimum.
