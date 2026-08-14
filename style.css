@@ -412,43 +412,32 @@ input,textarea{caret-color:var(--red-hot);}
 .take-actions{display:flex;gap:.9rem;margin-top:1.6rem;flex-wrap:wrap;}
 
 /* ============================================================
-   SPEC LEDGER
+   SOCIAL PROOF
    ============================================================ */
-/* This panel used to be black ink on red. It read well but it could not be made
-   accessible: the red sits at 0.078 relative luminance, so even pure black tops
-   out at 2.56:1 — under the 3:1 large-text floor and nowhere near the 4.5:1 body
-   floor. Lightening the red enough to carry dark ink would have meant giving up
-   the brand colour, so the ink flipped instead. Bone on this red measures
-   7.3:1, and the black chip on .ledger-val now reads as the accent rather than
-   the ground, which keeps the stamped-document character. */
-.ledger{
-  position:relative;padding:6rem 0 6.4rem;
-  background:linear-gradient(160deg,var(--red) 0%,#a30f1a 58%,var(--red-deep) 100%);
-  color:var(--bone);
+.social{padding:6rem 0 6.4rem;background:var(--char-850);}
+.social-layout{
+  display:grid;grid-template-columns:1.3fr .9fr;gap:2.4rem;align-items:center;
+  max-width:920px;margin:0 auto;
 }
-.ledger::before,.ledger::after{
-  content:'';position:absolute;left:0;right:0;height:12px;
-  background:repeating-linear-gradient(90deg,rgba(0,0,0,.28) 0 10px,transparent 10px 20px);
+.social-quote{
+  border-left:2px solid var(--gold);padding:.2rem 0 .2rem 1.6rem;margin:0;
 }
-.ledger::before{top:0;} .ledger::after{bottom:0;}
-.ledger-head{max-width:52ch;margin-bottom:3rem;}
-.ledger-title{font-size:clamp(2.15rem,5.1vw,3.35rem);text-transform:uppercase;color:var(--bone);letter-spacing:.01em;}
-.ledger-sub{margin-top:.9rem;color:rgba(244,241,234,.86);font-weight:700;}
-.ledger-rows{border-top:1px solid rgba(244,241,234,.26);}
-.ledger-row{
-  display:grid;grid-template-columns:170px 1fr auto;gap:1.2rem;align-items:center;
-  padding:1.15rem 0;border-bottom:1px solid rgba(244,241,234,.26);
-  transition:background .24s,transform .24s var(--ease),opacity .24s var(--ease);
+.social-quote p{
+  font-family:var(--display);font-size:clamp(1.3rem,2.6vw,1.7rem);line-height:1.35;
+  color:var(--bone);margin:0;
 }
-
-.ledger-row dt{
-  font-family:var(--display);font-weight:900;font-size:var(--fs-body);letter-spacing:.24em;color:var(--bone);
+.social-quote cite{
+  display:block;margin-top:.9rem;font-style:normal;font-size:var(--fs-caption);
+  letter-spacing:.14em;text-transform:uppercase;color:var(--ash-dim);
 }
-.ledger-row dd{margin:0;color:rgba(244,241,234,.86);font-size:var(--fs-body-lg);font-weight:400;}
-.ledger-val{
-  font-weight:800;font-size:var(--fs-caption);letter-spacing:.16em;
-  background:#0a0a0b;color:var(--gold-lt);padding:.4rem .8rem;border-radius:2px;white-space:nowrap;
+.social-links{display:flex;flex-direction:column;gap:.7rem;}
+.social-link{
+  display:flex;align-items:center;justify-content:space-between;gap:1rem;
+  background:var(--char-800);border:1px solid rgba(244,241,234,.07);border-radius:3px;
+  padding:1rem 1.2rem;transition:border-color .25s,transform .25s var(--ease);
 }
+.social-platform{font-weight:800;letter-spacing:.06em;color:var(--bone);}
+.social-count{font-size:var(--fs-caption);letter-spacing:.1em;text-transform:uppercase;color:var(--gold-lt);white-space:nowrap;}
 
 /* ============================================================
    MENU
@@ -615,6 +604,37 @@ input,textarea{caret-color:var(--red-hot);}
   transition:transform .35s var(--ease),filter .35s var(--ease);
   filter:saturate(.95) contrast(1.05);
 }
+
+/* ============================================================
+   CATERING
+   ============================================================ */
+.catering{padding:8rem 0;background:var(--char-850);}
+.catering-grid{
+  display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:1.2rem;
+  max-width:920px;margin:0 auto;
+}
+.catering-tier{
+  background:var(--char-800);border:1px solid rgba(244,241,234,.07);border-radius:3px;
+  padding:1.8rem 1.6rem;text-align:center;
+}
+.catering-tier-name{
+  display:block;font-family:var(--display);font-weight:900;font-size:var(--fs-body-lg);
+  text-transform:uppercase;color:var(--bone);
+}
+.catering-tier-price{display:block;margin-top:.6rem;font-size:var(--fs-subtitle);font-weight:800;color:var(--gold-lt);}
+.catering-tier-note{margin-top:.6rem;color:var(--ash-dim);font-size:var(--fs-caption);line-height:var(--lh-prose);}
+.catering-quote{
+  max-width:640px;margin:3rem auto 0;text-align:center;border:0;
+}
+.catering-quote p{
+  font-family:var(--display);font-size:clamp(1.15rem,2.2vw,1.4rem);line-height:1.4;
+  color:var(--bone);margin:0;
+}
+.catering-quote cite{
+  display:block;margin-top:.8rem;font-style:normal;font-size:var(--fs-caption);
+  letter-spacing:.1em;text-transform:uppercase;color:var(--ash-dim);
+}
+.catering-actions{display:flex;justify-content:center;gap:.9rem;margin-top:2.4rem;flex-wrap:wrap;}
 
 /* ============================================================
    BRAND STING
@@ -885,7 +905,7 @@ input,textarea{caret-color:var(--red-hot);}
   .nav-link:hover{color:var(--bone);}
   .nav-link:hover::after{transform:scaleX(1);}
   .nav-btn:hover{background:var(--red-hot);transform:translateY(-1px);}
-  .ledger-row:hover{background:rgba(0,0,0,.09);transform:translateX(.8rem);}
+  .social-link:hover{border-color:rgba(216,180,90,.42);transform:translateX(.4rem);}
   .menu-card:hover{transform:translateY(-3px);border-color:rgba(216,180,90,.42);}
   .menu-card:hover::after{opacity:1;}
   .menu-card:hover .card-img{transform:scale(1.03);}
@@ -907,8 +927,7 @@ input,textarea{caret-color:var(--red-hot);}
   .who{grid-template-columns:1fr;}
   .builder-receipt{position:static;}
   .footer-grid{grid-template-columns:1fr 1fr;}
-  .ledger-row{grid-template-columns:1fr;gap:.4rem;}
-  .ledger-val{justify-self:start;}
+  .social-layout{grid-template-columns:1fr;}
 }
 @media (max-width:820px){
   .nav-links{
