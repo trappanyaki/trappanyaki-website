@@ -1,0 +1,9 @@
+# Excludes these paths from Cloudflare Workers static asset serving
+# (wrangler.jsonc's "assets": { "directory": "." } would otherwise serve
+# them raw over HTTP — confirmed live at trappanyaki.com/.git/config
+# during a security review, 2026-08-13). Same syntax as .gitignore.
+
+.git
+.git/**
+wrangler.jsonc
+wrangler.toml
