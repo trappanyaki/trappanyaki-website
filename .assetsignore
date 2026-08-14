@@ -7,3 +7,4 @@
 .git/**
 wrangler.jsonc
 wrangler.toml
+worker.js

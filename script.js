@@ -749,6 +749,19 @@
           awaitingEdit = true;
           everSent = true;
           if (typeof fbq !== 'undefined') fbq('track', 'Lead');
+          /* Best-effort text alert to the kitchen. The order already reached us
+             via email above — this is a bonus nudge, so a failure here must
+             never affect what the customer sees. */
+          fetch('/api/notify-order', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+              name: nameEl.value.trim(),
+              slot: currentSlot(),
+              total: totalEl ? totalEl.textContent : '',
+              botcheck: botEl && botEl.checked ? true : false
+            })
+          }).catch(function () { /* no-op */ });
           say('Batch sent. We will text you to confirm — pay at pickup when you are ready.', 'ok');
         }).catch(function () {
           clearTimeout(timer);
