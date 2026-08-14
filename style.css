@@ -999,6 +999,78 @@ input,textarea{caret-color:var(--red-hot);}
   .ch-line{font-size:var(--fs-body-lg);}
 }
 
+/* ============================================================
+   SHATTER MARK — logo breaks into cube fragments, reforms
+   ============================================================ */
+.shatter{position:relative;background:var(--char-900);}
+.shatter-track{height:320vh;position:relative;}
+.shatter-stage{
+  height:100vh;height:100dvh;overflow:hidden;
+  display:flex;align-items:center;justify-content:center;
+  perspective:1500px;
+}
+.shatter-glow{
+  position:absolute;inset:-20%;
+  background:
+    radial-gradient(50% 45% at 50% 50%, rgba(216,180,90,.10), transparent 70%),
+    radial-gradient(60% 50% at 80% 20%, rgba(230,51,41,.08), transparent 70%),
+    var(--char-900);
+}
+.shatter-fallback{
+  position:absolute;width:min(680px,70vw);height:auto;object-fit:contain;
+  transition:opacity .3s var(--ease);
+}
+.shatter-stage.has-cubes .shatter-fallback{opacity:0;}
+
+.shatter-rig{
+  position:absolute;inset:0;display:flex;align-items:center;justify-content:center;
+  transform-style:preserve-3d;will-change:transform;
+  opacity:0;transition:opacity .2s linear;
+}
+.shatter-stage.has-cubes .shatter-rig{opacity:1;}
+
+.shatter-grid{
+  position:relative;width:min(680px,70vw);aspect-ratio:755/472;
+  display:grid;transform-style:preserve-3d;
+  grid-template-columns:repeat(var(--cols,8),1fr);
+  grid-template-rows:repeat(var(--rows,5),1fr);
+}
+.cube{position:relative;transform-style:preserve-3d;will-change:transform;}
+.cube-face{position:absolute;inset:-0.5px;backface-visibility:hidden;}
+.cube-face--front{
+  background-image:url('logo.png');background-repeat:no-repeat;
+  background-size:calc(var(--cols)*100%) calc(var(--rows)*100%);
+  transform:translateZ(var(--cube-d));
+  /* background-position set per-cube inline by JS */
+}
+.cube-face--back{
+  background:linear-gradient(180deg,var(--char-600),var(--char-900));
+  transform:rotateY(180deg) translateZ(var(--cube-d));
+}
+.cube-face--right{
+  background:linear-gradient(180deg,var(--red-hot),var(--red-deep));
+  transform:rotateY(90deg) translateZ(var(--cube-d));
+}
+.cube-face--left{
+  background:linear-gradient(180deg,var(--red),var(--red-deep));
+  transform:rotateY(-90deg) translateZ(var(--cube-d));
+}
+.cube-face--top{
+  background:linear-gradient(180deg,var(--gold-lt),var(--gold));
+  transform:rotateX(90deg) translateZ(var(--cube-d));
+}
+.cube-face--bottom{
+  background:linear-gradient(180deg,var(--char-700),var(--char-900));
+  transform:rotateX(-90deg) translateZ(var(--cube-d));
+}
+
+/* withdraw will-change the moment the section scrolls out of view,
+   same rationale/pattern as .take-stage (style.css:335-351) */
+.shatter-stage:not(.is-running) .shatter-rig,
+.shatter-stage:not(.is-running) .cube{
+  will-change:auto;
+}
+
 @media (prefers-reduced-motion:reduce){
   html{scroll-behavior:auto;}
   .rig,.tray,.tray-face,.pl,.tray-gloss,.tray-rim,.tray-lid,.steam{will-change:auto;}
@@ -1026,5 +1098,13 @@ input,textarea{caret-color:var(--red-hot);}
   .step:not(:disabled):active{transform:none;background:rgba(193,18,31,.3);color:var(--bone);}
   .receipt-lines li.is-new{animation:none;}
   .cap-warn:not([hidden]){animation:none;}
+
+  .shatter-rig,.cube{will-change:auto;}
+  .shatter-rig{display:none;}        /* belt-and-suspenders: JS never builds it anyway */
+  .shatter-track{height:auto;}
+  .shatter-stage{
+    position:relative;height:auto;min-height:60vh;min-height:60dvh;padding:4rem 0;
+  }
+  .shatter-fallback{position:relative;opacity:1 !important;}
 }
 

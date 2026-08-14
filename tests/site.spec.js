@@ -71,3 +71,30 @@ test.describe('FAQ accordion', function () {
     await expect(first).toHaveJSProperty('open', false);
   });
 });
+
+test.describe('shatter mark', function () {
+  test('builds a 40-cube grid at desktop width', async function ({ page }) {
+    await page.setViewportSize({ width: 1280, height: 800 });
+    await page.goto('/');
+
+    await expect(page.locator('#shatter')).toBeAttached();
+    await expect(page.locator('#shatter-grid .cube')).toHaveCount(40);
+    await expect(page.locator('#shatter-stage')).toHaveClass(/has-cubes/);
+  });
+
+  test('builds a reduced 24-cube grid under 820px', async function ({ page }) {
+    await page.setViewportSize({ width: 390, height: 844 });
+    await page.goto('/');
+
+    await expect(page.locator('#shatter-grid .cube')).toHaveCount(24);
+  });
+
+  test('reduced motion skips the cube grid and shows the flat logo', async function ({ page }) {
+    await page.emulateMedia({ reducedMotion: 'reduce' });
+    await page.goto('/');
+
+    await expect(page.locator('#shatter-grid .cube')).toHaveCount(0);
+    await expect(page.locator('#shatter-fallback')).toBeVisible();
+    await expect(page.locator('#shatter-fallback')).toHaveCSS('opacity', '1');
+  });
+});

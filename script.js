@@ -834,7 +834,135 @@
   })();
 
   /* ==========================================================
-     10 · SMALL STUFF
+     10 · SHATTER MARK — logo breaks into cube fragments, reforms
+     0.00–0.40  shatter .... logo breaks apart, cubes fly outward tumbling
+     0.40–0.60  scattered ... held at max scatter
+     0.60–1.00  reform ...... cubes fly back, snap into the sharp logo
+     ========================================================== */
+  (function shatterMark() {
+    var track = $('#shatter-track');
+    var stage = $('#shatter-stage');
+    var rig   = $('#shatter-rig');
+    var grid  = $('#shatter-grid');
+    if (!track || !stage || !rig || !grid) return;
+
+    /* Reduced motion never builds the cube grid — the flat #shatter-fallback
+       <img> already in the DOM is the whole experience, same convention as
+       module 7 (BRAND STING): reduced motion never arms the animated path. */
+    if (reduced) return;
+
+    var mobile = window.innerWidth < 820;
+    var cols = mobile ? 6 : 8;
+    var rows = mobile ? 4 : 5;
+
+    var hash = function (i, salt) {
+      var x = Math.sin(i * 12.9898 + salt * 78.233) * 43758.5453;
+      return x - Math.floor(x);
+    };
+
+    /* ---- build the grid ---- */
+    var frag = document.createDocumentFragment();
+    var faces = ['front', 'back', 'right', 'left', 'top', 'bottom'];
+    var els = [];
+    for (var r = 0; r < rows; r++) {
+      for (var c = 0; c < cols; c++) {
+        var cubeEl = document.createElement('div');
+        cubeEl.className = 'cube';
+        for (var f = 0; f < faces.length; f++) {
+          var faceEl = document.createElement('div');
+          faceEl.className = 'cube-face cube-face--' + faces[f];
+          if (faces[f] === 'front') {
+            faceEl.style.backgroundPosition =
+              (c / (cols - 1) * 100).toFixed(3) + '% ' + (r / (rows - 1) * 100).toFixed(3) + '%';
+          }
+          cubeEl.appendChild(faceEl);
+        }
+        frag.appendChild(cubeEl);
+        els.push(cubeEl);
+      }
+    }
+    grid.appendChild(frag);
+
+    grid.style.setProperty('--cols', String(cols));
+    grid.style.setProperty('--rows', String(rows));
+    var cubeSize = grid.getBoundingClientRect().width / cols;
+    grid.style.setProperty('--cube-d', (cubeSize / 2).toFixed(2) + 'px');
+
+    /* ---- per-cube deterministic explosion data, computed once ---- */
+    var spreadScale = mobile ? 0.55 : 1;
+    var rotScale = mobile ? 0.65 : 1;
+    var spread = cubeSize * 3.0 * spreadScale;
+    var depth  = cubeSize * 3.6 * spreadScale;
+    var rotXY  = 480 * rotScale;
+    var rotZ   = 260 * rotScale;
+
+    var cubes = els.map(function (el, i) {
+      var c = i % cols, r = Math.floor(i / cols);
+      var dirX = (c / (cols - 1) - 0.5) * 2;
+      var dirY = (r / (rows - 1) - 0.5) * 2;
+      return {
+        el: el,
+        dx: dirX * spread * 0.65 + (hash(i, 1) - 0.5) * spread,
+        dy: dirY * spread * 0.65 + (hash(i, 2) - 0.5) * spread,
+        dz: (hash(i, 3) - 0.5) * 2 * depth,
+        rx: (hash(i, 4) - 0.5) * 2 * rotXY,
+        ry: (hash(i, 5) - 0.5) * 2 * rotXY,
+        rz: (hash(i, 6) - 0.5) * 2 * rotZ,
+        scalePeak: 0.72 + 0.18 * hash(i, 11),
+        /* jittering the window EDGES (not the progress value) guarantees every
+           cube is still exactly at rest (s=0) at p=0 and p=1, because seg()
+           clamps outside its window regardless of jitter */
+        outStart: 0.03 * hash(i, 7),
+        outEnd:   0.38 + 0.06 * hash(i, 8),
+        inStart:  0.58 + 0.06 * hash(i, 9),
+        inEnd:    0.97 + 0.03 * hash(i, 10)
+      };
+    });
+
+    var render = function (p) {
+      for (var i = 0; i < cubes.length; i++) {
+        var cube = cubes[i];
+        var outPhase = easeInOut(seg(p, cube.outStart, cube.outEnd));
+        var inPhase  = easeInOut(seg(p, cube.inStart,  cube.inEnd));
+        var s = outPhase * (1 - inPhase);
+        var dx = cube.dx * s, dy = cube.dy * s, dz = cube.dz * s;
+        var rx = cube.rx * s, ry = cube.ry * s, rz = cube.rz * s;
+        var sc = lerp(1, cube.scalePeak, s);
+        cube.el.style.transform =
+          'translate3d(' + dx.toFixed(1) + 'px,' + dy.toFixed(1) + 'px,' + dz.toFixed(1) + 'px) ' +
+          'rotateX(' + rx.toFixed(1) + 'deg) rotateY(' + ry.toFixed(1) + 'deg) rotateZ(' + rz.toFixed(1) + 'deg) ' +
+          'scale(' + sc.toFixed(3) + ')';
+      }
+      var globalOut = easeInOut(seg(p, 0.00, 0.40));
+      var globalIn  = easeInOut(seg(p, 0.60, 1.00));
+      var globalS   = globalOut * (1 - globalIn);
+      rig.style.transform = 'scale(' + lerp(1, 1.10, globalS).toFixed(3) + ')';
+    };
+
+    stage.classList.add('has-cubes');   /* reveal rig, hide fallback (CSS-driven) */
+    render(0);
+
+    gsap.registerPlugin(ScrollTrigger);
+    ScrollTrigger.create({
+      trigger: track,
+      start: 'top top',
+      end: 'bottom bottom',
+      pin: stage,
+      scrub: true,
+      onUpdate: function (self) { render(self.progress); }
+    });
+
+    if ('IntersectionObserver' in window) {
+      new IntersectionObserver(function (entries) {
+        stage.classList.toggle('is-running', entries[0].isIntersecting);
+      }, { rootMargin: '100% 0px' }).observe(track);
+    } else {
+      stage.classList.add('is-running');
+    }
+  })();
+
+  /* ==========================================================
+     11 · SMALL STUFF
      ========================================================== */
   (function misc() {
     var year = $('#year');

@@ -327,6 +327,23 @@
     </div>
   </section>
 
+  <!-- ============ SHATTER MARK — logo breaks apart, reforms ============ -->
+  <section class="shatter" id="shatter" aria-label="Trappanyaki mark, shattered and reformed">
+    <div class="shatter-track" id="shatter-track">
+      <div class="shatter-stage" id="shatter-stage">
+        <div class="shatter-glow" aria-hidden="true"></div>
+        <!-- always-present flat mark: the whole experience for reduced-motion
+             and no-JS users, and the pre-build placeholder for everyone else -->
+        <img class="shatter-fallback" id="shatter-fallback"
+             src="logo.png" width="755" height="472" alt="" aria-hidden="true">
+        <!-- camera rig: JS injects cube elements into #shatter-grid at init -->
+        <div class="shatter-rig" id="shatter-rig" aria-hidden="true">
+          <div class="shatter-grid" id="shatter-grid"></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
   <!-- ============ SOCIAL PROOF ============ -->
   <section class="social" id="social" aria-label="Follow Trappanyaki">
     <div class="container">
