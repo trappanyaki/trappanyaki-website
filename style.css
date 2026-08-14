@@ -135,6 +135,7 @@ input,textarea{caret-color:var(--red-hot);}
   letter-spacing:.01em;
 }
 .section-lede{color:var(--ash);max-width:52ch;margin:1.1rem auto 0;line-height:var(--lh-prose);letter-spacing:var(--ls-prose);}
+.section-lede a{color:var(--gold-lt);text-decoration:underline;text-underline-offset:3px;}
 .section-header{text-align:center;margin-bottom:4.2rem;padding-top:1.4rem;}
 .gold-divider{
   width:82px;height:2px;margin:1.2rem auto 0;
