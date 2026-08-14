@@ -468,6 +468,12 @@
     var FORM_KEY = 'e33f75e6-e7a8-4c6a-88f0-8e723ba62b94';
     var FORM_URL = 'https://api.web3forms.com/submit';
 
+    /* Not a real secret — anything shipped to the browser is readable. This
+       just filters out casual/automated hits on /api/notify-order so the
+       text-alert endpoint isn't wide open to anyone who finds the URL. Real
+       protection is the Cloudflare rate-limit rule on that path. */
+    var NOTIFY_CLIENT_TOKEN = 'trap-8f2c4a1e-notify';
+
     var state = rows.map(function (row) {
       return {
         row: row,
@@ -763,7 +769,7 @@
              never affect what the customer sees. */
           fetch('/api/notify-order', {
             method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
+            headers: { 'Content-Type': 'application/json', 'X-Trapp-Client': NOTIFY_CLIENT_TOKEN },
             body: JSON.stringify({
               name: nameEl.value.trim(),
               slot: currentSlot(),

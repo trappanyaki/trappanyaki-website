@@ -21,9 +21,17 @@ export default {
    customer, since the order already reached Web3Forms by the time this
    runs. Kept deliberately minimal: no queue, no retry, no logging of
    customer data beyond what's needed for the text itself. */
+/* Mirrors NOTIFY_CLIENT_TOKEN in script.js. Not a real secret — visible to
+   anyone reading page source — this only filters casual/automated hits.
+   Real protection is the Cloudflare rate-limit rule on this path. */
+const CLIENT_TOKEN = 'trap-8f2c4a1e-notify';
+
 async function notifyOrder(request, env) {
   const origin = request.headers.get('Origin') || '';
   if (!/^https:\/\/(www\.)?trappanyaki\.com$/.test(origin)) {
+    return new Response('Forbidden', { status: 403 });
+  }
+  if (request.headers.get('X-Trapp-Client') !== CLIENT_TOKEN) {
     return new Response('Forbidden', { status: 403 });
   }
 
