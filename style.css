@@ -503,16 +503,44 @@ input,textarea{caret-color:var(--red-hot);}
 .card-fine{margin-top:1rem;color:var(--ash-dim);font-size:var(--fs-caption);line-height:1.5;line-height:var(--lh-prose);letter-spacing:var(--ls-prose);}
 
 /* ============================================================
+   PLATE SHIFT
+   ============================================================ */
+.shift{background:var(--char-900);padding:7rem 0;}
+.shift-track{height:300vh;position:relative;}
+.shift-stage{
+  height:min(88vh,820px);overflow:hidden;
+  display:flex;align-items:center;justify-content:center;
+}
+.shift-frame{
+  position:relative;height:100%;aspect-ratio:3/4;max-width:min(460px,84vw);
+  border-radius:4px;overflow:hidden;background:#000;
+  box-shadow:0 40px 90px -40px rgba(0,0,0,.9);
+}
+.shift-img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0;will-change:opacity;}
+.shift-img.is-base{opacity:1;}
+.shift-stage:not(.is-running) .shift-img{will-change:auto;}
+.shift-caption{
+  position:absolute;left:0;right:0;bottom:0;padding:1.4rem 1.2rem 1.1rem;
+  background:linear-gradient(0deg,rgba(0,0,0,.86),transparent);
+  display:flex;flex-direction:column;gap:.3rem;
+}
+.shift-eyebrow{font-size:var(--fs-meta);letter-spacing:.34em;color:var(--ash-dim);text-transform:uppercase;}
+.shift-label{font-family:var(--display);font-size:var(--fs-body-lg);letter-spacing:.06em;color:var(--gold-lt);text-transform:uppercase;}
+.shift-rail{position:absolute;top:0;left:0;right:0;height:2px;background:rgba(244,241,234,.14);}
+.shift-rail-fill{position:absolute;inset:0 auto 0 0;width:0;background:linear-gradient(90deg,var(--red),var(--red-hot),var(--gold));}
+
+/* ============================================================
    TICKER
    ============================================================ */
 .ticker-section{background:var(--char-900);padding:5rem 0 6.5rem;border-top:1px solid rgba(244,241,234,.06);}
 
 .ticker-layout{display:grid;grid-template-columns:1fr auto;gap:2.4rem;align-items:center;}
-.ticker-reel{
+.ticker-media{display:flex;flex-direction:column;gap:1rem;flex:none;}
+.ticker-reel,.ticker-proof{
   position:relative;width:180px;aspect-ratio:9/16;border-radius:4px;overflow:hidden;
   background:#000;box-shadow:0 30px 70px -36px rgba(0,0,0,.9);flex:none;
 }
-.ticker-reel-video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;background:#000;}
+.ticker-reel-video,.ticker-proof img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;background:#000;}
 .ticker-reel-cap{
   position:absolute;left:0;right:0;bottom:0;padding:.6rem .7rem .55rem;
   background:linear-gradient(0deg,rgba(0,0,0,.82),transparent);
@@ -847,7 +875,8 @@ input,textarea{caret-color:var(--red-hot);}
    ============================================================ */
 @media (max-width:960px){
   .ticker-layout{grid-template-columns:1fr;}
-  .ticker-reel{width:100%;max-width:280px;margin-inline:auto;}
+  .ticker-media{flex-direction:row;justify-content:center;width:100%;}
+  .ticker-reel,.ticker-proof{width:140px;max-width:45%;}
   .builder-grid{grid-template-columns:1fr;}
   .who{grid-template-columns:1fr;}
   .builder-receipt{position:static;}
@@ -867,6 +896,7 @@ input,textarea{caret-color:var(--red-hot);}
   .nav-link{font-size:1rem;}
   .mobile-toggle{display:block;z-index:2;}
   .take-track{height:400vh;}
+  .shift-track{height:260vh;}
   /* the stack sits over the copy on narrow screens — ground it from the bottom */
   .hud-scrim{
     background:linear-gradient(180deg,rgba(8,8,10,.55) 0%,rgba(8,8,10,.82) 42%,rgba(8,8,10,.94) 100%);
@@ -907,6 +937,11 @@ input,textarea{caret-color:var(--red-hot);}
   .chapter{position:relative;top:auto;opacity:1;visibility:visible;transform:none;margin-bottom:2rem;}
   .chapters{max-width:none;}
   .reveal{opacity:1;transform:none;}
+  .shift-track{height:auto;}
+  .shift-stage{height:auto;padding:1rem 0;}
+  .shift-img{opacity:0;}
+  .shift-img.is-base{opacity:1;}
+  .shift-rail{display:none;}
 
   /* The blanket rule above removes movement, which is right — but it would also
      silence the builder, and someone who asked for less motion still needs to

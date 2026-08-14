@@ -221,7 +221,61 @@
   })();
 
   /* ==========================================================
-     3 · REVEALS
+     3 · PLATE SHIFT
+     ========================================================== */
+  (function plateShift() {
+    var track = $('#shift-track');
+    var stage = $('#shift-stage');
+    if (!track || !stage) return;
+
+    var images   = $$('.shift-img', stage);
+    var railFill = $('#shift-rail-fill');
+    var labelEl  = $('#shift-label');
+    if (!images.length) return;
+
+    var last = images[0].dataset.label;
+
+    var render = function (p) {
+      var scaled = p * (images.length - 1);
+      images.forEach(function (img, i) {
+        img.style.opacity = easeInOut(clamp(1 - Math.abs(scaled - i), 0, 1)).toFixed(3);
+      });
+      if (railFill) railFill.style.width = (p * 100).toFixed(2) + '%';
+      if (labelEl) {
+        var nearest = images[clamp(Math.round(scaled), 0, images.length - 1)];
+        if (nearest.dataset.label !== last) {
+          last = nearest.dataset.label;
+          labelEl.textContent = last;
+        }
+      }
+    };
+
+    if (reduced) { render(0); return; }
+
+    render(0);
+
+    gsap.registerPlugin(ScrollTrigger);
+
+    ScrollTrigger.create({
+      trigger: track,
+      start: 'top top',
+      end: 'bottom bottom',
+      pin: stage,
+      scrub: true,
+      onUpdate: function (self) { render(self.progress); }
+    });
+
+    if ('IntersectionObserver' in window) {
+      new IntersectionObserver(function (entries) {
+        stage.classList.toggle('is-running', entries[0].isIntersecting);
+      }, { rootMargin: '100% 0px' }).observe(track);
+    } else {
+      stage.classList.add('is-running');
+    }
+  })();
+
+  /* ==========================================================
+     4 · REVEALS
      ========================================================== */
   (function reveals() {
     var items = $$('.reveal');
@@ -242,7 +296,7 @@
   })();
 
   /* ==========================================================
-     4 · BATCH REEL — small looping card in the ticker section
+     5 · BATCH REEL — small looping card in the ticker section
      Ambient, not a one-time reveal, so it's allowed to loop and to resume
      when scrolled back into view. Same load-on-demand and reduced-motion
      rules as the brand sting below.
@@ -279,7 +333,7 @@
   })();
 
   /* ==========================================================
-     5 · BRAND STING
+     6 · BRAND STING
      Loads nothing until the section is nearly in view, plays once, pauses if
      scrolled away mid-play. Reduced motion never arms it — the poster frame
      (logo-sting-poster.webp, set via the video's poster attribute) is the
@@ -329,7 +383,7 @@
   })();
 
   /* ==========================================================
-     6 · BATCH FIGURES
+     7 · BATCH FIGURES
      The cap, the pickup windows and the kitchen hours are fixed facts written
      straight into the markup. Slots left is the only live one: the builder
      drives it.
@@ -361,7 +415,7 @@
   })();
 
   /* ==========================================================
-     7 · BATCH-SLOT BUILDER (hard cap: 8 plates)
+     8 · BATCH-SLOT BUILDER (hard cap: 8 plates)
      ========================================================== */
   (function builder() {
     var list = $('#plate-list');
@@ -711,7 +765,7 @@
   })();
 
   /* ==========================================================
-     8 · SMALL STUFF
+     9 · SMALL STUFF
      ========================================================== */
   (function misc() {
     var year = $('#year');
