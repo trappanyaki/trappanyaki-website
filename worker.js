@@ -35,6 +35,17 @@ async function notifyOrder(request, env) {
     return new Response('Forbidden', { status: 403 });
   }
 
+  /* Real backstop: 5 requests per 60s per IP, enforced by the platform
+     before the rest of this function runs. Can't be bypassed by omitting
+     a header, unlike the token check above. */
+  if (env.NOTIFY_LIMITER) {
+    const ip = request.headers.get('CF-Connecting-IP') || 'unknown';
+    const { success } = await env.NOTIFY_LIMITER.limit({ key: ip });
+    if (!success) {
+      return new Response('Too Many Requests', { status: 429 });
+    }
+  }
+
   let body;
   try {
     body = await request.json();
