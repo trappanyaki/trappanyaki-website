@@ -46,6 +46,26 @@
   Cache-Control: public, max-age=31536000, immutable
 /ticker-batch-proof.webp
   Cache-Control: public, max-age=31536000, immutable
+/gallery-full-tray.webp
+  Cache-Control: public, max-age=31536000, immutable
+/gallery-sear-macro.webp
+  Cache-Control: public, max-age=31536000, immutable
+/gallery-batch-line.webp
+  Cache-Control: public, max-age=31536000, immutable
+/gallery-catering-pan.webp
+  Cache-Control: public, max-age=31536000, immutable
+/gallery-signature-sauce.webp
+  Cache-Control: public, max-age=31536000, immutable
+/gallery-batch-bowls.webp
+  Cache-Control: public, max-age=31536000, immutable
+/gallery-burrito.webp
+  Cache-Control: public, max-age=31536000, immutable
+/gallery-sauce-macro.webp
+  Cache-Control: public, max-age=31536000, immutable
+/gallery-two-tray.webp
+  Cache-Control: public, max-age=31536000, immutable
+/ticker-batch-proof.webp
+  Cache-Control: public, max-age=31536000, immutable
 
 /archivo.woff2
   Cache-Control: public, max-age=31536000, immutable

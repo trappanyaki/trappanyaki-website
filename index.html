@@ -151,6 +151,33 @@
         }
       ]
     },
+    "makesOffer": [
+      {
+        "@type": "Offer",
+        "name": "Private Event Catering",
+        "description": "Live hibachi catering for private events, 20-50 guests, full setup",
+        "price": "1500",
+        "priceCurrency": "USD"
+      },
+      {
+        "@type": "Offer",
+        "name": "Full Production Catering",
+        "description": "Live hibachi catering for large private events, 50-150+ guests, full production",
+        "price": "4000",
+        "priceCurrency": "USD"
+      },
+      {
+        "@type": "Offer",
+        "name": "Corporate Catering",
+        "description": "Corporate team lunches and office catering, priced per head",
+        "priceSpecification": {
+          "@type": "UnitPriceSpecification",
+          "price": "35",
+          "priceCurrency": "USD",
+          "unitText": "per head"
+        }
+      }
+    ],
     "acceptsReservations": false,
     "potentialAction": {
       "@type": "OrderAction",
@@ -178,6 +205,7 @@
         <a href="#breakdown" class="nav-link">Protein</a>
         <a href="#builder" class="nav-link">Build a Batch</a>
         <a href="#faq" class="nav-link">FAQ</a>
+        <a href="tel:+13502500607" class="nav-link nav-link--call">(350) 250-0607</a>
         <a href="#builder" class="nav-btn">Order Now</a>
       </nav>
 
@@ -572,6 +600,55 @@
     </div>
   </section>
 
+  <!-- ============ GALLERY ============ -->
+  <section class="gallery-section" id="gallery" aria-label="Photo gallery">
+    <div class="container">
+      <div class="section-header">
+        <h2 class="section-title">FROM THE FLAT-TOP</h2>
+        <div class="gold-divider"></div>
+        <p class="section-lede">Real trays, real drops — no stock photos.</p>
+      </div>
+      <div class="gallery-grid">
+        <a class="gallery-item reveal" href="gallery1.jpg" target="_blank" rel="noopener noreferrer">
+          <img src="gallery1.jpg" alt="Full hibachi tray with chicken, steak and salmon over garlic fried rice" loading="lazy">
+        </a>
+        <a class="gallery-item reveal" href="gallery-full-tray.webp" target="_blank" rel="noopener noreferrer">
+          <img src="gallery-full-tray.webp" alt="Top-down view of a full hibachi tray on a wood table" loading="lazy">
+        </a>
+        <a class="gallery-item reveal" href="gallery-sear-macro.webp" target="_blank" rel="noopener noreferrer">
+          <img src="gallery-sear-macro.webp" alt="Close-up of seared chicken and steak fresh off the flat-top" loading="lazy">
+        </a>
+        <a class="gallery-item reveal" href="gallery5.jpg" target="_blank" rel="noopener noreferrer">
+          <img src="gallery5.jpg" alt="Three hibachi trays with steak and shrimp lined up for a batch drop" loading="lazy">
+        </a>
+        <a class="gallery-item reveal" href="gallery-batch-line.webp" target="_blank" rel="noopener noreferrer">
+          <img src="gallery-batch-line.webp" alt="Two hibachi trays side by side mid-batch" loading="lazy">
+        </a>
+        <a class="gallery-item reveal" href="gallery-two-tray.webp" target="_blank" rel="noopener noreferrer">
+          <img src="gallery-two-tray.webp" alt="Two hibachi trays with chicken, shrimp and steak side by side" loading="lazy">
+        </a>
+        <a class="gallery-item reveal" href="gallery-catering-pan.webp" target="_blank" rel="noopener noreferrer">
+          <img src="gallery-catering-pan.webp" alt="Full catering pan of garlic fried rice with fresh scallion" loading="lazy">
+        </a>
+        <a class="gallery-item reveal" href="gallery-signature-sauce.webp" target="_blank" rel="noopener noreferrer">
+          <img src="gallery-signature-sauce.webp" alt="Signature hibachi plate crossed with chipotle-orange mayo and dark soy glaze" loading="lazy">
+        </a>
+        <a class="gallery-item reveal" href="gallery-sauce-macro.webp" target="_blank" rel="noopener noreferrer">
+          <img src="gallery-sauce-macro.webp" alt="Macro shot of a sauced hibachi tray, chipotle-orange mayo and dark soy glaze" loading="lazy">
+        </a>
+        <a class="gallery-item reveal" href="gallery6.webp" target="_blank" rel="noopener noreferrer">
+          <img src="gallery6.webp" alt="Close-up of a seared salmon fillet over garlic fried rice" loading="lazy">
+        </a>
+        <a class="gallery-item reveal" href="gallery-batch-bowls.webp" target="_blank" rel="noopener noreferrer">
+          <img src="gallery-batch-bowls.webp" alt="Multiple hibachi bowls prepped in a batch" loading="lazy">
+        </a>
+        <a class="gallery-item reveal" href="gallery-burrito.webp" target="_blank" rel="noopener noreferrer">
+          <img src="gallery-burrito.webp" alt="Toasted Bussdown Designer Burrito fresh off the flat-top" loading="lazy">
+        </a>
+      </div>
+    </div>
+  </section>
+
   <!-- ============ BRAND STING ============ -->
   <section class="sting" id="sting" aria-label="Trappanyaki brand mark">
     <div class="container">
@@ -761,6 +838,7 @@
             <p class="receipt-msg" id="receipt-msg" role="status" aria-live="polite" hidden></p>
             <p class="receipt-fine" id="pay-btn" hidden>Pay at pickup — CashApp, Venmo, Chime, PayPal, or card via Square.</p>
             <p class="receipt-fine">Pickup only · Tracy, CA · 3 PM–12 AM. We confirm your batch before you pay.</p>
+            <p class="receipt-fine">Rather call? <a href="tel:+13502500607">(350) 250-0607</a></p>
           </div>
         </aside>
       </div>
