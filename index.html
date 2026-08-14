@@ -220,109 +220,26 @@
   <main id="main">
 
   <!-- ============ THE TAKE — one continuous scrubbed shot, 4 chapters ============ -->
-  <section class="take" id="take" aria-label="The Take — hibachi tray sequence">
-    <div class="take-track" id="take-track">
-      <div class="take-stage" id="take-stage">
+  <section class="take" id="take" aria-label="Trappanyaki hibachi plate">
+    <div class="take-stage">
+      <img class="take-hero" src="food-hibachi-plate.webp"
+           alt="Seared hibachi chicken plate with crossed chipotle-orange mayo and dark soy glaze, in a matte black snap-lid tray">
+      <div class="hud-scrim" aria-hidden="true"></div>
 
-        <div class="stage-glow" aria-hidden="true"></div>
+      <div class="take-hud">
+        <h1 class="hud-mark">TRAPPANYAKI</h1>
 
-        <!-- camera rig: one shot, no cuts -->
-        <div class="rig" id="rig" aria-hidden="true">
-          <div class="tray" id="tray">
-            <div class="tray-shadow" id="tray-shadow"></div>
-
-            <div class="tray-body">
-              <div class="tray-floor"></div>
-              <!-- the macro face is only needed once the take reaches chapter 3; the
-                   scrub fetches it then, so it costs nothing at first paint -->
-              <img class="tray-face tray-face--macro" id="face-macro" data-src="gallery6.webp" alt="" decoding="async">
-              <div class="tray-vignette"></div>
-              <div class="tray-gloss" id="gloss"></div>
-              <div class="tray-rim" id="tray-rim"></div>
-            </div>
-
-            <!-- the plate, in layers — they hang apart and land one by one as you scroll -->
-            <div class="plate" id="plate">
-              <img class="pl" src="layerrice.webp" alt="" loading="eager">
-              <img class="pl" src="layerveg.webp" alt="" loading="eager">
-              <img class="pl" src="layerchicken.webp" alt="" loading="eager">
-              <img class="pl" src="layersteak.webp" alt="" loading="eager">
-              <img class="pl" src="layersauce.webp" alt="" loading="eager">
-            </div>
-
-            <!-- clear snap-lid -->
-            <div class="tray-lid" id="tray-lid">
-              <div class="lid-sheen"></div>
-              <div class="lid-lip"></div>
-            </div>
-
-            <div class="steam" id="steam">
-              <span></span><span></span><span></span><span></span><span></span><span></span>
-            </div>
-          </div>
+        <div class="take-copy">
+          <span class="ch-index">CH 01</span>
+          <h2 class="ch-title">THE PLATE</h2>
+          <p class="ch-line">Seared, sauced, straight off the flat-top. This is what you came for.</p>
         </div>
 
-        <!-- CH01 hero — real plate, dissolves into the CSS rig by p~0.22 so the
-             "no cuts" claim holds: this reads as a push-through, not a jump cut. -->
-        <img class="take-hero" id="take-hero" src="food-hibachi-plate.webp"
-             alt="Seared hibachi chicken plate with crossed chipotle-orange mayo and dark soy glaze, in a matte black snap-lid tray"
-             aria-hidden="true">
-
-        <!-- Optional upgrade: drop a rendered clip in  and put its path in data-src.
-             The take then scrubs the footage instead of the CSS rig. Empty = no request. -->
-        <video class="take-video" id="take-video" data-src="" playsinline muted preload="auto" aria-hidden="true"></video>
-
-        <!-- HUD -->
-        <div class="take-hud">
-          <div class="hud-scrim" id="hud-scrim" aria-hidden="true"></div>
-          <div class="hud-top">
-            <h1 class="hud-mark">TRAPPANYAKI</h1>
-            <span class="hud-take">ONE TAKE · NO CUTS</span>
-          </div>
-
-          <div class="chapters" id="chapters">
-            <article class="chapter is-live" data-ch="0">
-              <span class="ch-index">CH 01</span>
-              <h2 class="ch-title">THE PLATE</h2>
-              <p class="ch-line">Seared, sauced, straight off the flat-top. This is what you came for.</p>
-            </article>
-            <article class="chapter" data-ch="1">
-              <span class="ch-index">CH 02</span>
-              <h2 class="ch-title">THE RELEASE</h2>
-              <p class="ch-line">Snap-lid lets go. Clean tray, ready to load.</p>
-            </article>
-            <article class="chapter" data-ch="2">
-              <span class="ch-index">CH 03</span>
-              <h2 class="ch-title">THE BUILD</h2>
-              <p class="ch-line">Rice, veg, protein, crossed drizzle. Every layer lands in order.</p>
-            </article>
-            <article class="chapter" data-ch="3">
-              <span class="ch-index">CH 04</span>
-              <h2 class="ch-title">THE BITE</h2>
-              <p class="ch-line">One glistening piece of seared chicken. That's the whole argument.</p>
-            </article>
-          </div>
-
-          <div class="hud-bottom">
-            <div class="rail" role="presentation">
-              <span class="rail-fill" id="rail-fill"></span>
-              <span class="rail-tick" style="left:25%"></span>
-              <span class="rail-tick" style="left:50%"></span>
-              <span class="rail-tick" style="left:75%"></span>
-            </div>
-            <div class="hud-meta">
-              <span class="hud-count"><b id="hud-ch">01</b> / 04</span>
-              <span class="hud-scroll">SCROLL TO RUN THE TAKE</span>
-            </div>
-          </div>
-
-          <div class="take-actions">
-            <a href="#builder" class="btn btn-primary">Order Now</a>
-            <a href="#builder" class="btn btn-ghost">Build a Batch</a>
-            <a href="https://ig.me/m/TRAPPANYAKI" target="_blank" rel="noopener noreferrer" class="btn btn-ghost">Text ORDER on IG</a>
-          </div>
+        <div class="take-actions">
+          <a href="#builder" class="btn btn-primary">Order Now</a>
+          <a href="#builder" class="btn btn-ghost">Build a Batch</a>
+          <a href="https://ig.me/m/TRAPPANYAKI" target="_blank" rel="noopener noreferrer" class="btn btn-ghost">Text ORDER on IG</a>
         </div>
-
       </div>
     </div>
   </section>

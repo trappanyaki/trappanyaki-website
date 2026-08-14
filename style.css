@@ -223,198 +223,42 @@ input,textarea{caret-color:var(--red-hot);}
 .mobile-toggle.is-open .bar:nth-child(3){transform:translateY(-7px) rotate(-45deg);}
 
 /* ============================================================
-   THE TAKE — scrubbed one-shot
+   THE TAKE — static hero (the scrubbed 3D take was broken on
+   deploy: wrong chapter on load, tray rendering as an empty
+   gray box. Replaced with a plain hero banner — same photo,
+   headline and CTAs, no scroll-driven animation to break.)
    ============================================================ */
 .take{position:relative;background:var(--char-900);}
-.take-track{height:460vh;position:relative;}
 .take-stage{
-  height:100vh;height:100dvh;overflow:hidden;
-  display:flex;align-items:center;justify-content:center;
-  perspective:1200px;
-}
-.stage-glow{
-  position:absolute;inset:-20%;
-  background:
-    radial-gradient(48% 42% at 50% 58%, rgba(230,51,41,.10), transparent 72%),
-    radial-gradient(60% 50% at 18% 20%, rgba(216,180,90,.07), transparent 70%),
-    var(--char-900);
-}
-
-.rig{
-  position:absolute;inset:0;display:flex;align-items:center;justify-content:center;
-  transform-style:preserve-3d;will-change:transform;
+  position:relative;min-height:100vh;min-height:100dvh;overflow:hidden;
+  display:flex;align-items:flex-end;
 }
 .take-hero{
   position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:1;
-  will-change:opacity;
 }
-.take-stage.has-video .take-hero{display:none;}
-.tray{
-  position:relative;width:min(46vh,340px);height:min(64vh,470px);
-  transform-style:preserve-3d;will-change:transform,opacity;
-}
-.tray-shadow{
-  position:absolute;left:50%;top:58%;width:130%;height:60%;
-  transform:translate(-50%,0) rotateX(72deg);
-  background:radial-gradient(closest-side,rgba(0,0,0,.85),transparent 72%);
-  filter:blur(14px);
-}
-.tray-body{
-  position:absolute;inset:0;border-radius:16px;overflow:hidden;
-  background:#0d0d0f;
-  box-shadow:
-    inset 0 0 0 6px #131316,
-    inset 0 0 40px rgba(0,0,0,.9),
-    0 40px 90px -30px rgba(0,0,0,.95);
-}
-.tray-face{
-  position:absolute;inset:0;width:100%;height:100%;object-fit:cover;
-  will-change:opacity,transform;
-}
-/* empty tray interior — what the layers land into */
-.tray-floor{
-  position:absolute;inset:0;
-  background:
-    radial-gradient(120% 80% at 50% 18%, rgba(255,255,255,.05), transparent 60%),
-    linear-gradient(180deg,#131317,#0a0a0c 62%,#08080a);
-}
-.tray-floor::after{
-  content:'';position:absolute;inset:7% 6%;border-radius:10px;
-  box-shadow:inset 0 2px 12px rgba(0,0,0,.9), inset 0 0 0 1px rgba(255,255,255,.04);
-}
-
-/* the layer stack — lives outside .tray-body so it can hang above the rim */
-.plate{
-  position:absolute;inset:0;transform-style:preserve-3d;pointer-events:none;
-}
-.pl{
-  position:absolute;left:50%;top:50%;width:106%;height:auto;
-  transform:translate(-50%,-50%);
-  will-change:transform,opacity;
-  filter:drop-shadow(0 18px 26px rgba(0,0,0,.75));
-}
-/* cropped hard into the tray so the counter never shows */
-.tray-face--macro{opacity:0;transform:scale(1.6);object-position:50% 46%;filter:saturate(1.12) contrast(1.06);}
-.tray-vignette{
-  position:absolute;inset:0;pointer-events:none;
-  background:
-    radial-gradient(120% 92% at 50% 46%, transparent 42%, rgba(0,0,0,.55) 82%, rgba(0,0,0,.88) 100%),
-    linear-gradient(180deg,rgba(0,0,0,.35),transparent 26%,transparent 72%,rgba(0,0,0,.45));
-}
-.tray-gloss{
-  position:absolute;inset:0;
-  background:linear-gradient(115deg,transparent 34%,rgba(255,235,200,.42) 47%,rgba(255,255,255,.16) 52%,transparent 64%);
-  mix-blend-mode:screen;opacity:.45;will-change:transform,opacity;
-}
-.tray-rim{
-  position:absolute;inset:0;border-radius:16px;pointer-events:none;
-  box-shadow:inset 0 0 0 2px rgba(230,51,41,.35), inset 0 0 26px rgba(230,51,41,.12);
-  will-change:opacity;
-}
-
-.tray-lid{
-  position:absolute;inset:-8px -8px auto -8px;height:calc(100% + 16px);
-  border-radius:20px;
-  background:linear-gradient(150deg,rgba(255,255,255,.16),rgba(255,255,255,.04) 42%,rgba(255,255,255,.11));
-  border:1px solid rgba(255,255,255,.26);
-  transform-origin:50% 100%;
-  will-change:transform,opacity;
-}
-.lid-sheen{
-  position:absolute;inset:0;border-radius:20px;
-  background:linear-gradient(120deg,transparent 30%,rgba(255,255,255,.5) 46%,transparent 58%);
-  opacity:.5;
-}
-.lid-lip{
-  position:absolute;inset:auto 0 0 0;height:12px;border-radius:0 0 20px 20px;
-  background:linear-gradient(90deg,rgba(216,180,90,.1),rgba(216,180,90,.65),rgba(216,180,90,.1));
-}
-
-.steam{position:absolute;left:50%;bottom:56%;width:200px;height:280px;transform:translateX(-50%);opacity:0;will-change:opacity;}
-
-/* will-change promotes each of these to its own compositor layer and holds it
-   for the whole session — twelve layers still resident while someone reads the
-   FAQ. The take needs them while it is on screen and never again, so the hint
-   is withdrawn whenever the stage is out of view. Scrolling back in restores it
-   before the first frame, because the observer fires ahead of the scroll
-   handler. */
-.take-stage:not(.is-running) .take-hero,
-.take-stage:not(.is-running) .rig,
-.take-stage:not(.is-running) .tray,
-.take-stage:not(.is-running) .tray-face,
-.take-stage:not(.is-running) .tray-gloss,
-.take-stage:not(.is-running) .tray-rim,
-.take-stage:not(.is-running) .tray-lid,
-.take-stage:not(.is-running) .steam,
-.take-stage:not(.is-running) .pl{
-  will-change:auto;
-}
-.steam span{
-  position:absolute;bottom:0;width:56px;height:56px;border-radius:50%;
-  background:radial-gradient(closest-side,rgba(255,255,255,.5),transparent 72%);
-  filter:blur(9px);
-  animation:rise 6s linear infinite;
-}
-.steam span:nth-child(1){left:6%;animation-delay:0s;}
-.steam span:nth-child(2){left:26%;animation-delay:.9s;}
-.steam span:nth-child(3){left:46%;animation-delay:1.8s;}
-.steam span:nth-child(4){left:64%;animation-delay:2.6s;}
-.steam span:nth-child(5){left:20%;animation-delay:3.4s;}
-.steam span:nth-child(6){left:78%;animation-delay:4.2s;}
-@keyframes rise{
-  0%{transform:translateY(0) scale(.5);opacity:0;}
-  22%{opacity:.7;}
-  100%{transform:translateY(-260px) scale(1.9);opacity:0;}
-}
-
-.take-video{
-  position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0;
-  transition:opacity .6s var(--ease);
-}
-.take-stage.has-video .take-video{opacity:1;}
-.take-stage.has-video .rig{opacity:0;}
-
-/* HUD */
-.take-hud{
-  position:relative;z-index:5;width:min(1320px,94vw);height:100%;
-  display:grid;grid-template-rows:auto 1fr auto;padding:8rem 0 2.2rem;pointer-events:none;
-}
-.take-hud a,.take-hud button{pointer-events:auto;}
-/* keeps the chapter copy legible once the shot pushes into macro */
 .hud-scrim{
-  position:absolute;inset:-2rem -8vw;pointer-events:none;opacity:0;z-index:-1;
-  background:linear-gradient(100deg,rgba(8,8,10,.94) 0%,rgba(8,8,10,.8) 34%,rgba(8,8,10,.28) 58%,transparent 78%);
-  transition:opacity .3s linear;
+  position:absolute;inset:0;pointer-events:none;z-index:2;
+  background:linear-gradient(0deg,rgba(8,8,10,.92) 0%,rgba(8,8,10,.55) 40%,rgba(8,8,10,.1) 68%,transparent 85%);
 }
-.hud-top{display:flex;justify-content:space-between;align-items:center;
-  font-size:var(--fs-meta);letter-spacing:.34em;color:var(--ash-dim);text-transform:uppercase;}
+
+.take-hud{
+  position:relative;z-index:3;width:min(1320px,94vw);margin:0 auto;
+  padding:8rem 0 4rem;
+}
 .hud-mark{
   font-family:var(--display);letter-spacing:.42em;color:var(--ash);
-  font-size:var(--fs-meta);font-weight:400;line-height:1.6;margin:0;
+  font-size:var(--fs-meta);font-weight:400;line-height:1.6;margin:0 0 3rem;
+  text-transform:uppercase;
 }
-
-.chapters{position:relative;align-self:center;max-width:min(560px,86vw);}
-.chapter{
-  position:absolute;top:50%;left:0;transform:translateY(-38%);
-  opacity:0;visibility:hidden;transition:opacity .5s var(--ease),transform .5s var(--ease);
-}
-.chapter.is-live{opacity:1;visibility:visible;transform:translateY(-50%);}
 .ch-index{
   display:inline-block;font-size:var(--fs-meta);font-weight:800;letter-spacing:.4em;color:var(--red-hot);
   border-left:2px solid var(--red);padding-left:.7rem;margin-bottom:1rem;
 }
 .ch-title{
   font-size:clamp(2.6rem,8vw,5.4rem);line-height:.92;text-transform:uppercase;
-  text-shadow:0 18px 50px rgba(0,0,0,.7);
+  text-shadow:0 18px 50px rgba(0,0,0,.7);max-width:min(560px,86vw);
 }
 .ch-line{margin-top:1rem;color:var(--ash);max-width:38ch;font-size:var(--fs-subtitle);}
-
-.hud-bottom{display:flex;flex-direction:column;gap:.7rem;}
-.rail{position:relative;height:2px;background:rgba(244,241,234,.14);}
-.rail-fill{position:absolute;inset:0 auto 0 0;width:0;background:linear-gradient(90deg,var(--red),var(--red-hot),var(--gold));}
-.rail-tick{position:absolute;top:-3px;width:1px;height:8px;background:rgba(244,241,234,.3);}
-.hud-meta{display:flex;justify-content:space-between;font-size:var(--fs-meta);letter-spacing:.3em;color:var(--ash-dim);text-transform:uppercase;}
-.hud-count b{color:var(--bone);}
 .take-actions{display:flex;gap:.9rem;margin-top:1.6rem;flex-wrap:wrap;}
 
 /* ============================================================
@@ -966,7 +810,6 @@ input,textarea{caret-color:var(--red-hot);}
   .nav-links.is-open{transform:none;}
   .nav-link{font-size:1rem;}
   .mobile-toggle{display:block;z-index:2;}
-  .take-track{height:400vh;}
   .shift-track{height:260vh;}
   /* the stack sits over the copy on narrow screens — ground it from the bottom */
   .hud-scrim{
@@ -975,7 +818,6 @@ input,textarea{caret-color:var(--red-hot);}
   .brand-logo{width:96px;}
   .navbar.is-stuck .brand-logo{width:84px;}
   .take-hud{padding-top:7rem;}
-  .tray{width:min(40vh,250px);height:min(56vh,350px);}
 }
 /* Touch targets. The visual size stays as designed; an invisible pseudo
    element widens the hit area to the 44px WCAG 2.5.5 / Apple HIG minimum.
@@ -1073,12 +915,7 @@ input,textarea{caret-color:var(--red-hot);}
 
 @media (prefers-reduced-motion:reduce){
   html{scroll-behavior:auto;}
-  .rig,.tray,.tray-face,.pl,.tray-gloss,.tray-rim,.tray-lid,.steam{will-change:auto;}
   *,*::before,*::after{animation-duration:.001ms !important;animation-iteration-count:1 !important;transition-duration:.001ms !important;}
-  .take-track{height:auto;}
-  .take-stage{position:relative;height:auto;min-height:100vh;min-height:100dvh;padding:7rem 0 3rem;}
-  .chapter{position:relative;top:auto;opacity:1;visibility:visible;transform:none;margin-bottom:2rem;}
-  .chapters{max-width:none;}
   .reveal{opacity:1;transform:none;}
   .shift-track{height:auto;}
   .shift-stage{height:auto;padding:1rem 0;}
