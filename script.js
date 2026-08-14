@@ -654,9 +654,9 @@
 
   /* ==========================================================
      9 · SHATTER MARK — logo breaks into cube fragments, reforms
-     0.00–0.40  shatter .... logo breaks apart, cubes fly outward tumbling
-     0.40–0.60  scattered ... held at max scatter
-     0.60–1.00  reform ...... cubes fly back, snap into the sharp logo
+     0.00–0.16  shatter .... logo breaks apart, cubes fly outward tumbling
+     0.16–0.84  scattered ... held at max scatter for most of the scroll
+     0.84–1.00  reform ...... cubes fly back, snap into the sharp logo
      ========================================================== */
   (function shatterMark() {
     var track = $('#shatter-track');
@@ -731,10 +731,10 @@
         /* jittering the window EDGES (not the progress value) guarantees every
            cube is still exactly at rest (s=0) at p=0 and p=1, because seg()
            clamps outside its window regardless of jitter */
-        outStart: 0.03 * hash(i, 7),
-        outEnd:   0.38 + 0.06 * hash(i, 8),
-        inStart:  0.58 + 0.06 * hash(i, 9),
-        inEnd:    0.97 + 0.03 * hash(i, 10)
+        outStart: 0.02 * hash(i, 7),
+        outEnd:   0.13 + 0.05 * hash(i, 8),
+        inStart:  0.80 + 0.05 * hash(i, 9),
+        inEnd:    0.98 + 0.02 * hash(i, 10)
       };
     });
 
@@ -752,8 +752,8 @@
           'rotateX(' + rx.toFixed(1) + 'deg) rotateY(' + ry.toFixed(1) + 'deg) rotateZ(' + rz.toFixed(1) + 'deg) ' +
           'scale(' + sc.toFixed(3) + ')';
       }
-      var globalOut = easeInOut(seg(p, 0.00, 0.40));
-      var globalIn  = easeInOut(seg(p, 0.60, 1.00));
+      var globalOut = easeInOut(seg(p, 0.00, 0.16));
+      var globalIn  = easeInOut(seg(p, 0.84, 1.00));
       var globalS   = globalOut * (1 - globalIn);
       rig.style.transform = 'scale(' + lerp(1, 1.10, globalS).toFixed(3) + ')';
     };
