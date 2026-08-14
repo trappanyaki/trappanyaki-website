@@ -342,7 +342,48 @@
   })();
 
   /* ==========================================================
-     6 · BRAND STING
+     6 · DRIZZLE + GRIDDLE REELS — same ambient loop pattern as
+     the batch reel above, one instance per card.
+     ========================================================== */
+  (function ambientReels() {
+    if (reduced) return;
+
+    var reels = [
+      { card: $('.bd-video-wrap'), video: $('#drizzle-video') },
+      { card: $('.griddle-video-wrap'), video: $('#griddle-video') }
+    ];
+
+    reels.forEach(function (reel) {
+      var card = reel.card, video = reel.video;
+      if (!card || !video) return;
+
+      var armed = false;
+      var arm = function () {
+        if (armed) return;
+        armed = true;
+        $$('source', video).forEach(function (s) { s.src = s.dataset.src; });
+        video.load();
+      };
+
+      if (!('IntersectionObserver' in window)) {
+        arm();
+        video.play().catch(function () {});
+        return;
+      }
+
+      new IntersectionObserver(function (entries) {
+        if (entries[0].isIntersecting) {
+          arm();
+          video.play().catch(function () {});
+        } else {
+          video.pause();
+        }
+      }, { threshold: 0.3 }).observe(card);
+    });
+  })();
+
+  /* ==========================================================
+     7 · BRAND STING
      Loads nothing until the section is nearly in view, plays once, pauses if
      scrolled away mid-play. Reduced motion never arms it — the poster frame
      (logo-sting-poster.webp, set via the video's poster attribute) is the
@@ -392,7 +433,7 @@
   })();
 
   /* ==========================================================
-     7 · BATCH FIGURES
+     8 · BATCH FIGURES
      The cap, the pickup windows and the kitchen hours are fixed facts written
      straight into the markup. Slots left is the only live one: the builder
      drives it.
@@ -424,7 +465,7 @@
   })();
 
   /* ==========================================================
-     8 · BATCH-SLOT BUILDER (hard cap: 8 plates)
+     9 · BATCH-SLOT BUILDER (hard cap: 8 plates)
      ========================================================== */
   (function builder() {
     var list = $('#plate-list');
@@ -793,7 +834,7 @@
   })();
 
   /* ==========================================================
-     9 · SMALL STUFF
+     10 · SMALL STUFF
      ========================================================== */
   (function misc() {
     var year = $('#year');

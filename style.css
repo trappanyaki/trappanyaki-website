@@ -577,6 +577,16 @@ input,textarea{caret-color:var(--red-hot);}
 }
 .bd-title{font-size:var(--fs-body);letter-spacing:.22em;text-transform:uppercase;}
 .bd-note{color:var(--ash-dim);font-size:var(--fs-body);margin-top:.6rem;line-height:var(--lh-prose);letter-spacing:var(--ls-prose);}
+.bd-video-wrap{
+  position:relative;margin-top:1.6rem;width:min(220px,60%);aspect-ratio:9/16;
+  border-radius:4px;overflow:hidden;background:#000;box-shadow:0 24px 60px -30px rgba(0,0,0,.9);
+}
+.bd-video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;background:#000;}
+.bd-video-cap{
+  position:absolute;left:0;right:0;bottom:0;padding:.6rem .7rem .55rem;
+  background:linear-gradient(0deg,rgba(0,0,0,.82),transparent);
+  font-size:var(--fs-micro);letter-spacing:.14em;text-transform:uppercase;color:var(--bone);font-weight:700;
+}
 /* Component lists. These replaced percentage bars: the page should not imply
    measurements nobody took. */
 .spec-list{margin-top:1.6rem;display:flex;flex-direction:column;}
@@ -597,6 +607,16 @@ input,textarea{caret-color:var(--red-hot);}
    GALLERY
    ============================================================ */
 .gallery-section{padding:8rem 0;background:var(--char-900);}
+.griddle-video-wrap{
+  position:relative;width:min(300px,70%);aspect-ratio:9/16;margin:0 auto 2.4rem;
+  border-radius:4px;overflow:hidden;background:#000;box-shadow:0 30px 70px -36px rgba(0,0,0,.9);
+}
+.griddle-video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;background:#000;}
+.griddle-video-cap{
+  position:absolute;left:0;right:0;bottom:0;padding:.7rem .8rem .6rem;
+  background:linear-gradient(0deg,rgba(0,0,0,.82),transparent);
+  font-size:var(--fs-micro);letter-spacing:.14em;text-transform:uppercase;color:var(--bone);font-weight:700;text-align:center;
+}
 .gallery-grid{
   display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));
   gap:.9rem;

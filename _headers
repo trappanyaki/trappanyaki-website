@@ -66,6 +66,34 @@
   Cache-Control: public, max-age=31536000, immutable
 /ticker-batch-proof.webp
   Cache-Control: public, max-age=31536000, immutable
+/gallery-two-trays-sauced.webp
+  Cache-Control: public, max-age=31536000, immutable
+/gallery-shrimp-lemon.webp
+  Cache-Control: public, max-age=31536000, immutable
+/gallery-steak-zucchini.webp
+  Cache-Control: public, max-age=31536000, immutable
+/gallery-triple-protein.webp
+  Cache-Control: public, max-age=31536000, immutable
+/gallery-raw-ribeye.webp
+  Cache-Control: public, max-age=31536000, immutable
+/gallery-chicken-steak-onion.webp
+  Cache-Control: public, max-age=31536000, immutable
+/gallery-sauced-mushroom.webp
+  Cache-Control: public, max-age=31536000, immutable
+/gallery-sauced-macro2.webp
+  Cache-Control: public, max-age=31536000, immutable
+/sauce-drizzle.mp4
+  Cache-Control: public, max-age=31536000, immutable
+/sauce-drizzle.webm
+  Cache-Control: public, max-age=31536000, immutable
+/sauce-drizzle-poster.webp
+  Cache-Control: public, max-age=31536000, immutable
+/griddle-sear.mp4
+  Cache-Control: public, max-age=31536000, immutable
+/griddle-sear.webm
+  Cache-Control: public, max-age=31536000, immutable
+/griddle-sear-poster.webp
+  Cache-Control: public, max-age=31536000, immutable
 
 /archivo.woff2
   Cache-Control: public, max-age=31536000, immutable
