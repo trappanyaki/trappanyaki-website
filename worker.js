@@ -59,7 +59,7 @@ async function notifyOrder(request, env) {
     sender: 'Trappanyaki'
   });
 
-  let ok = false;
+  let result = { ok: false };
   try {
     const resp = await fetch('https://textbelt.com/text', {
       method: 'POST',
@@ -67,12 +67,20 @@ async function notifyOrder(request, env) {
       body: params.toString()
     });
     const data = await resp.json();
-    ok = !!data.success;
+    /* textId/quotaRemaining/error aren't sensitive — surfaced so delivery
+       problems (bad number format, empty quota, carrier rejection) can be
+       diagnosed from outside the Worker's own logs. */
+    result = {
+      ok: !!data.success,
+      textId: data.textId || null,
+      quotaRemaining: typeof data.quotaRemaining === 'number' ? data.quotaRemaining : null,
+      error: data.error || null
+    };
   } catch (err) {
-    ok = false;
+    result = { ok: false, error: 'fetch to textbelt failed' };
   }
 
-  return json({ ok: ok });
+  return json(result);
 }
 
 function json(obj) {
