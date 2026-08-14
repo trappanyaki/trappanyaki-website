@@ -244,6 +244,11 @@ input,textarea{caret-color:var(--red-hot);}
   position:absolute;inset:0;display:flex;align-items:center;justify-content:center;
   transform-style:preserve-3d;will-change:transform;
 }
+.take-hero{
+  position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:1;
+  will-change:opacity;
+}
+.take-stage.has-video .take-hero{display:none;}
 .tray{
   position:relative;width:min(46vh,340px);height:min(64vh,470px);
   transform-style:preserve-3d;will-change:transform,opacity;
@@ -333,6 +338,7 @@ input,textarea{caret-color:var(--red-hot);}
    is withdrawn whenever the stage is out of view. Scrolling back in restores it
    before the first frame, because the observer fires ahead of the scroll
    handler. */
+.take-stage:not(.is-running) .take-hero,
 .take-stage:not(.is-running) .rig,
 .take-stage:not(.is-running) .tray,
 .take-stage:not(.is-running) .tray-face,

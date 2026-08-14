@@ -74,6 +74,7 @@
     var hudCh    = $('#hud-ch');
     var chapters = $$('.chapter');
     var video    = $('#take-video');
+    var hero     = $('#take-hero');
 
     var hasVideo = false;
     if (video && video.dataset.src) {
@@ -107,6 +108,10 @@
       if (railFill) railFill.style.width = (p * 100).toFixed(2) + '%';
       setChapter(clamp(Math.floor(p * 4), 0, 3));
 
+      /* CH01 hero plate dissolves into the rig by p=0.22 — a push-through,
+         not a jump cut, so "ONE TAKE · NO CUTS" still holds. */
+      if (hero) hero.style.opacity = (1 - easeInOut(seg(p, 0, 0.22))).toFixed(3);
+
       if (hasVideo && video.duration) {
         video.currentTime = clamp(p, 0, 0.999) * video.duration;
         return;
@@ -136,11 +141,15 @@
       tray.style.opacity = op.toFixed(3);
       if (shadow) shadow.style.opacity = (0.35 + 0.5 * lift - 0.5 * bite).toFixed(3);
       if (rim) rim.style.opacity = (1 - bite * 0.9).toFixed(3);
-      /* the scrim carries the copy from the moment the layers start dropping */
+      /* the scrim carries the copy from the moment the layers start dropping.
+         Plus a hero boost: the CH01 photo is bright and busy under the copy,
+         so add extra darken that fades out in step with the photo itself. */
+      var heroScrim = 0.55 * (1 - easeInOut(seg(p, 0, 0.22)));
       if (scrim) {
-        scrim.style.opacity = (window.innerWidth < 820)
-          ? (0.35 + 0.65 * easeInOut(seg(p, 0.34, 0.55))).toFixed(3)
-          : (0.15 + 0.85 * easeInOut(seg(p, 0.44, 0.72))).toFixed(3);
+        var baseScrim = (window.innerWidth < 820)
+          ? (0.35 + 0.65 * easeInOut(seg(p, 0.34, 0.55)))
+          : (0.15 + 0.85 * easeInOut(seg(p, 0.44, 0.72)));
+        scrim.style.opacity = clamp(baseScrim + heroScrim, 0, 1).toFixed(3);
       }
 
       /* lid: seated, then released up and away */
