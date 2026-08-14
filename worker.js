@@ -55,7 +55,8 @@ async function notifyOrder(request, env) {
   const params = new URLSearchParams({
     phone: env.NOTIFY_PHONE,
     message: message,
-    key: env.TEXTBELT_KEY
+    key: env.TEXTBELT_KEY,
+    sender: 'Trappanyaki'
   });
 
   let ok = false;
