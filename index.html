@@ -85,9 +85,17 @@
         },
         {
           "@type": "MenuSection",
+          "name": "Signature Plates",
+          "hasMenuItem": [
+            { "@type": "MenuItem", "name": "The Trappanyaki Plate", "description": "Ribeye · Lobster · Scallops", "offers": { "@type": "Offer", "price": "59.99", "priceCurrency": "USD" } },
+            { "@type": "MenuItem", "name": "The Filet & Crown Plate", "description": "Filet · Lobster · Scallops", "offers": { "@type": "Offer", "price": "69.99", "priceCurrency": "USD" } }
+          ]
+        },
+        {
+          "@type": "MenuSection",
           "name": "Combo Plates",
           "hasMenuItem": [
-            { "@type": "MenuItem", "name": "Chicken & Shrimp Combo", "offers": { "@type": "Offer", "price": "34.99", "priceCurrency": "USD" } },
+            { "@type": "MenuItem", "name": "Chicken & Shrimp Combo", "offers": { "@type": "Offer", "price": "29.99", "priceCurrency": "USD" } },
             { "@type": "MenuItem", "name": "Filet & Shrimp Combo", "offers": { "@type": "Offer", "price": "44.99", "priceCurrency": "USD" } },
             { "@type": "MenuItem", "name": "Ribeye & Shrimp Combo", "offers": { "@type": "Offer", "price": "49.99", "priceCurrency": "USD" } },
             { "@type": "MenuItem", "name": "Ribeye & Lobster Combo", "offers": { "@type": "Offer", "price": "54.99", "priceCurrency": "USD" } },
@@ -141,12 +149,14 @@
           "name": "Add-Ons & Sides",
           "hasMenuItem": [
             { "@type": "MenuItem", "name": "Garlic Noodles", "offers": { "@type": "Offer", "price": "9.99", "priceCurrency": "USD" } },
-            { "@type": "MenuItem", "name": "Extra Sauces", "offers": { "@type": "Offer", "price": "2.99", "priceCurrency": "USD" } },
+            { "@type": "MenuItem", "name": "Extra Sauces", "offers": { "@type": "Offer", "price": "1.99", "priceCurrency": "USD" } },
             { "@type": "MenuItem", "name": "Add Chicken", "offers": { "@type": "Offer", "price": "5.99", "priceCurrency": "USD" } },
             { "@type": "MenuItem", "name": "Add Shrimp", "offers": { "@type": "Offer", "price": "8.99", "priceCurrency": "USD" } },
             { "@type": "MenuItem", "name": "Upgrade to Ribeye", "offers": { "@type": "Offer", "price": "14.99", "priceCurrency": "USD" } },
             { "@type": "MenuItem", "name": "Add Lobster Tail", "offers": { "@type": "Offer", "price": "19.99", "priceCurrency": "USD" } },
-            { "@type": "MenuItem", "name": "Upgrade to Filet", "offers": { "@type": "Offer", "price": "19.99", "priceCurrency": "USD" } }
+            { "@type": "MenuItem", "name": "Upgrade to Filet", "offers": { "@type": "Offer", "price": "19.99", "priceCurrency": "USD" } },
+            { "@type": "MenuItem", "name": "Extra Rice (8oz)", "offers": { "@type": "Offer", "price": "4.99", "priceCurrency": "USD" } },
+            { "@type": "MenuItem", "name": "Garlic Butter", "offers": { "@type": "Offer", "price": "1.99", "priceCurrency": "USD" } }
           ]
         }
       ]
@@ -325,12 +335,28 @@
             </ul>
             <h4 class="price-head">Combo Plates</h4>
             <ul class="price-list">
-              <li><span>Chicken &amp; Shrimp</span><b>$34.99</b></li>
+              <li><span>Chicken &amp; Shrimp</span><b>$29.99</b></li>
               <li><span>Filet &amp; Shrimp</span><b>$44.99</b></li>
               <li><span>Ribeye &amp; Shrimp</span><b>$49.99</b></li>
               <li><span>Ribeye &amp; Lobster</span><b>$54.99</b></li>
               <li><span>Filet &amp; Lobster</span><b>$64.99</b></li>
             </ul>
+            <div class="specialty">
+              <div class="specialty-row">
+                <div>
+                  <span class="specialty-name">The Trappanyaki Plate</span>
+                  <span class="specialty-sub">Ribeye · Lobster · Scallops</span>
+                </div>
+                <b>$59.99</b>
+              </div>
+              <div class="specialty-row">
+                <div>
+                  <span class="specialty-name">The Filet &amp; Crown Plate</span>
+                  <span class="specialty-sub">Filet · Lobster · Scallops</span>
+                </div>
+                <b>$69.99</b>
+              </div>
+            </div>
           </div>
         </article>
 
@@ -403,12 +429,14 @@
             <h4 class="price-head">Add-Ons &amp; Sides</h4>
             <ul class="price-list">
               <li><span>Garlic Noodles</span><b>$9.99</b></li>
-              <li><span>Extra Sauces</span><b>$2.99</b></li>
+              <li><span>Extra Sauces</span><b>$1.99</b></li>
               <li><span>Add Chicken</span><b>$5.99</b></li>
               <li><span>Add Shrimp</span><b>$8.99</b></li>
               <li><span>Upgrade to Ribeye</span><b>$14.99</b></li>
               <li><span>Add Lobster Tail</span><b>$19.99</b></li>
               <li><span>Upgrade to Filet</span><b>$19.99</b></li>
+              <li><span>Extra Rice (8oz)</span><b>$4.99</b></li>
+              <li><span>Garlic Butter</span><b>$1.99</b></li>
             </ul>
             <p class="card-fine">Add on to any plate, noodle or burrito.</p>
           </div>
@@ -787,7 +815,7 @@
           <h3 class="builder-sub">2 · ADD-ONS</h3>
           <ul class="addon-list" id="addon-list">
             <li><label><input type="checkbox" data-addon data-price="9.99"><span>Garlic noodles</span><b>+$9.99</b></label></li>
-            <li><label><input type="checkbox" data-addon data-price="2.99"><span>Extra sauces</span><b>+$2.99</b></label></li>
+            <li><label><input type="checkbox" data-addon data-price="1.99"><span>Extra sauces</span><b>+$1.99</b></label></li>
             <li><label><input type="checkbox" data-addon data-price="8.99"><span>Add shrimp</span><b>+$8.99</b></label></li>
             <li><label><input type="checkbox" data-addon data-price="19.99"><span>Add lobster tail</span><b>+$19.99</b></label></li>
           </ul>
